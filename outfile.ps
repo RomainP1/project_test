@@ -1,0 +1,2355 @@
+%!PS-Adobe-3.0
+%%Creator: graphviz version 2.43.0 (0)
+%%Title: model_graph
+%%Pages: (atend)
+%%BoundingBox: (atend)
+%%EndComments
+save
+%%BeginProlog
+/DotDict 200 dict def
+DotDict begin
+
+/setupLatin1 {
+mark
+/EncodingVector 256 array def
+ EncodingVector 0
+
+ISOLatin1Encoding 0 255 getinterval putinterval
+EncodingVector 45 /hyphen put
+
+% Set up ISO Latin 1 character encoding
+/starnetISO {
+        dup dup findfont dup length dict begin
+        { 1 index /FID ne { def }{ pop pop } ifelse
+        } forall
+        /Encoding EncodingVector def
+        currentdict end definefont
+} def
+/Times-Roman starnetISO def
+/Times-Italic starnetISO def
+/Times-Bold starnetISO def
+/Times-BoldItalic starnetISO def
+/Helvetica starnetISO def
+/Helvetica-Oblique starnetISO def
+/Helvetica-Bold starnetISO def
+/Helvetica-BoldOblique starnetISO def
+/Courier starnetISO def
+/Courier-Oblique starnetISO def
+/Courier-Bold starnetISO def
+/Courier-BoldOblique starnetISO def
+cleartomark
+} bind def
+
+%%BeginResource: procset graphviz 0 0
+/coord-font-family /Times-Roman def
+/default-font-family /Times-Roman def
+/coordfont coord-font-family findfont 8 scalefont def
+
+/InvScaleFactor 1.0 def
+/set_scale {
+       dup 1 exch div /InvScaleFactor exch def
+       scale
+} bind def
+
+% styles
+/solid { [] 0 setdash } bind def
+/dashed { [9 InvScaleFactor mul dup ] 0 setdash } bind def
+/dotted { [1 InvScaleFactor mul 6 InvScaleFactor mul] 0 setdash } bind def
+/invis {/fill {newpath} def /stroke {newpath} def /show {pop newpath} def} bind def
+/bold { 2 setlinewidth } bind def
+/filled { } bind def
+/unfilled { } bind def
+/rounded { } bind def
+/diagonals { } bind def
+/tapered { } bind def
+
+% hooks for setting color 
+/nodecolor { sethsbcolor } bind def
+/edgecolor { sethsbcolor } bind def
+/graphcolor { sethsbcolor } bind def
+/nopcolor {pop pop pop} bind def
+
+/beginpage {	% i j npages
+	/npages exch def
+	/j exch def
+	/i exch def
+	/str 10 string def
+	npages 1 gt {
+		gsave
+			coordfont setfont
+			0 0 moveto
+			(\() show i str cvs show (,) show j str cvs show (\)) show
+		grestore
+	} if
+} bind def
+
+/set_font {
+	findfont exch
+	scalefont setfont
+} def
+
+% draw text fitted to its expected width
+/alignedtext {			% width text
+	/text exch def
+	/width exch def
+	gsave
+		width 0 gt {
+			[] 0 setdash
+			text stringwidth pop width exch sub text length div 0 text ashow
+		} if
+	grestore
+} def
+
+/boxprim {				% xcorner ycorner xsize ysize
+		4 2 roll
+		moveto
+		2 copy
+		exch 0 rlineto
+		0 exch rlineto
+		pop neg 0 rlineto
+		closepath
+} bind def
+
+/ellipse_path {
+	/ry exch def
+	/rx exch def
+	/y exch def
+	/x exch def
+	matrix currentmatrix
+	newpath
+	x y translate
+	rx ry scale
+	0 0 1 0 360 arc
+	setmatrix
+} bind def
+
+/endpage { showpage } bind def
+/showpage { } def
+
+/layercolorseq
+	[	% layer color sequence - darkest to lightest
+		[0 0 0]
+		[.2 .8 .8]
+		[.4 .8 .8]
+		[.6 .8 .8]
+		[.8 .8 .8]
+	]
+def
+
+/layerlen layercolorseq length def
+
+/setlayer {/maxlayer exch def /curlayer exch def
+	layercolorseq curlayer 1 sub layerlen mod get
+	aload pop sethsbcolor
+	/nodecolor {nopcolor} def
+	/edgecolor {nopcolor} def
+	/graphcolor {nopcolor} def
+} bind def
+
+/onlayer { curlayer ne {invis} if } def
+
+/onlayers {
+	/myupper exch def
+	/mylower exch def
+	curlayer mylower lt
+	curlayer myupper gt
+	or
+	{invis} if
+} def
+
+/curlayer 0 def
+
+%%EndResource
+%%EndProlog
+%%BeginSetup
+14 default-font-family set_font
+% /arrowlength 10 def
+% /arrowwidth 5 def
+
+% make sure pdfmark is harmless for PS-interpreters other than Distiller
+/pdfmark where {pop} {userdict /pdfmark /cleartomark load put} ifelse
+% make '<<' and '>>' safe on PS Level 1 devices
+/languagelevel where {pop languagelevel}{1} ifelse
+2 lt {
+    userdict (<<) cvn ([) cvn load put
+    userdict (>>) cvn ([) cvn load put
+} if
+
+%%EndSetup
+setupLatin1
+%%Page: 1 1
+%%PageBoundingBox: 36 36 1795 1001
+%%PageOrientation: Portrait
+0 0 1 beginpage
+gsave
+36 36 1759 965 boxprim clip newpath
+1 1 set_scale 0 rotate 40 40 translate
+% cluster_django_contrib_admin
+gsave
+1 setlinewidth
+0.21961 0.75294 0.5451 graphcolor
+newpath 589 771 moveto
+589 771 839 771 839 771 curveto
+845 771 851 777 851 783 curveto
+851 783 851 937 851 937 curveto
+851 943 845 949 839 949 curveto
+839 949 589 949 589 949 curveto
+583 949 577 943 577 937 curveto
+577 937 577 783 577 783 curveto
+577 777 583 771 589 771 curveto
+stroke
+0 0 0 graphcolor
+8 /Roboto set_font
+598.5 933.5 moveto 23 (          ) alignedtext
+0 0 0 graphcolor
+10 /Roboto set_font
+621.5 933.5 moveto 31 (          ) alignedtext
+0 0 0 graphcolor
+10 /Roboto set_font
+652.5 933.5 moveto 123 (django.contrib.admin) alignedtext
+0 0 0 graphcolor
+10 /Roboto set_font
+775.5 933.5 moveto 31 (          ) alignedtext
+0 0 0 graphcolor
+8 /Roboto set_font
+806.5 933.5 moveto 23 (          ) alignedtext
+grestore
+% cluster_django_contrib_auth
+gsave
+1 setlinewidth
+0.21961 0.75294 0.5451 graphcolor
+newpath 20 148 moveto
+20 148 588 148 588 148 curveto
+594 148 600 154 600 160 curveto
+600 160 600 723 600 723 curveto
+600 729 594 735 588 735 curveto
+588 735 20 735 20 735 curveto
+14 735 8 729 8 723 curveto
+8 723 8 160 8 160 curveto
+8 154 14 148 20 148 curveto
+stroke
+0 0 0 graphcolor
+8 /Roboto set_font
+194 719.5 moveto 23 (          ) alignedtext
+0 0 0 graphcolor
+10 /Roboto set_font
+217 719.5 moveto 31 (          ) alignedtext
+0 0 0 graphcolor
+10 /Roboto set_font
+248 719.5 moveto 112 (django.contrib.auth) alignedtext
+0 0 0 graphcolor
+10 /Roboto set_font
+360 719.5 moveto 31 (          ) alignedtext
+0 0 0 graphcolor
+8 /Roboto set_font
+391 719.5 moveto 23 (          ) alignedtext
+grestore
+% cluster_django_contrib_contenttypes
+gsave
+1 setlinewidth
+0.21961 0.75294 0.5451 graphcolor
+newpath 590 8 moveto
+590 8 860 8 860 8 curveto
+866 8 872 14 872 20 curveto
+872 20 872 109 872 109 curveto
+872 115 866 121 860 121 curveto
+860 121 590 121 590 121 curveto
+584 121 578 115 578 109 curveto
+578 109 578 20 578 20 curveto
+578 14 584 8 590 8 curveto
+stroke
+0 0 0 graphcolor
+8 /Roboto set_font
+590.5 105.5 moveto 23 (          ) alignedtext
+0 0 0 graphcolor
+10 /Roboto set_font
+613.5 105.5 moveto 31 (          ) alignedtext
+0 0 0 graphcolor
+10 /Roboto set_font
+644.5 105.5 moveto 161 (django.contrib.contenttypes) alignedtext
+0 0 0 graphcolor
+10 /Roboto set_font
+805.5 105.5 moveto 31 (          ) alignedtext
+0 0 0 graphcolor
+8 /Roboto set_font
+836.5 105.5 moveto 23 (          ) alignedtext
+grestore
+% cluster_django_contrib_flatpages
+gsave
+1 setlinewidth
+0.21961 0.75294 0.5451 graphcolor
+newpath 925 777.5 moveto
+925 777.5 1175 777.5 1175 777.5 curveto
+1181 777.5 1187 783.5 1187 789.5 curveto
+1187 789.5 1187 930.5 1187 930.5 curveto
+1187 936.5 1181 942.5 1175 942.5 curveto
+1175 942.5 925 942.5 925 942.5 curveto
+919 942.5 913 936.5 913 930.5 curveto
+913 930.5 913 789.5 913 789.5 curveto
+913 783.5 919 777.5 925 777.5 curveto
+stroke
+0 0 0 graphcolor
+8 /Roboto set_font
+925.5 927 moveto 23 (          ) alignedtext
+0 0 0 graphcolor
+10 /Roboto set_font
+948.5 927 moveto 31 (          ) alignedtext
+0 0 0 graphcolor
+10 /Roboto set_font
+979.5 927 moveto 141 (django.contrib.flatpages) alignedtext
+0 0 0 graphcolor
+10 /Roboto set_font
+1120.5 927 moveto 31 (          ) alignedtext
+0 0 0 graphcolor
+8 /Roboto set_font
+1151.5 927 moveto 23 (          ) alignedtext
+grestore
+% cluster_django_contrib_sessions
+gsave
+1 setlinewidth
+0.21961 0.75294 0.5451 graphcolor
+newpath 1219 572 moveto
+1219 572 1463 572 1463 572 curveto
+1469 572 1475 578 1475 584 curveto
+1475 584 1475 909 1475 909 curveto
+1475 915 1469 921 1463 921 curveto
+1463 921 1219 921 1219 921 curveto
+1213 921 1207 915 1207 909 curveto
+1207 909 1207 584 1207 584 curveto
+1207 578 1213 572 1219 572 curveto
+stroke
+0 0 0 graphcolor
+8 /Roboto set_font
+1219 905.5 moveto 23 (          ) alignedtext
+0 0 0 graphcolor
+10 /Roboto set_font
+1242 905.5 moveto 31 (          ) alignedtext
+0 0 0 graphcolor
+10 /Roboto set_font
+1273 905.5 moveto 136 (django.contrib.sessions) alignedtext
+0 0 0 graphcolor
+10 /Roboto set_font
+1409 905.5 moveto 31 (          ) alignedtext
+0 0 0 graphcolor
+8 /Roboto set_font
+1440 905.5 moveto 23 (          ) alignedtext
+grestore
+% cluster_django_contrib_sites
+gsave
+1 setlinewidth
+0.21961 0.75294 0.5451 graphcolor
+newpath 963 565.5 moveto
+963 565.5 1187 565.5 1187 565.5 curveto
+1193 565.5 1199 571.5 1199 577.5 curveto
+1199 577.5 1199 666.5 1199 666.5 curveto
+1199 672.5 1193 678.5 1187 678.5 curveto
+1187 678.5 963 678.5 963 678.5 curveto
+957 678.5 951 672.5 951 666.5 curveto
+951 666.5 951 577.5 951 577.5 curveto
+951 571.5 957 565.5 963 565.5 curveto
+stroke
+0 0 0 graphcolor
+8 /Roboto set_font
+963.5 663 moveto 23 (          ) alignedtext
+0 0 0 graphcolor
+10 /Roboto set_font
+986.5 663 moveto 31 (          ) alignedtext
+0 0 0 graphcolor
+10 /Roboto set_font
+1017.5 663 moveto 115 (django.contrib.sites) alignedtext
+0 0 0 graphcolor
+10 /Roboto set_font
+1132.5 663 moveto 31 (          ) alignedtext
+0 0 0 graphcolor
+8 /Roboto set_font
+1163.5 663 moveto 23 (          ) alignedtext
+grestore
+% cluster_apptestforadminpanel
+gsave
+1 setlinewidth
+0.21961 0.75294 0.5451 graphcolor
+newpath 1495 302.5 moveto
+1495 302.5 1731 302.5 1731 302.5 curveto
+1737 302.5 1743 308.5 1743 314.5 curveto
+1743 314.5 1743 898 1743 898 curveto
+1743 904 1737 910 1731 910 curveto
+1731 910 1495 910 1495 910 curveto
+1489 910 1483 904 1483 898 curveto
+1483 898 1483 314.5 1483 314.5 curveto
+1483 308.5 1489 302.5 1495 302.5 curveto
+stroke
+0 0 0 graphcolor
+8 /Roboto set_font
+1495.5 894.5 moveto 23 (          ) alignedtext
+0 0 0 graphcolor
+10 /Roboto set_font
+1518.5 894.5 moveto 31 (          ) alignedtext
+0 0 0 graphcolor
+10 /Roboto set_font
+1549.5 894.5 moveto 127 (apptestforadminpanel) alignedtext
+0 0 0 graphcolor
+10 /Roboto set_font
+1676.5 894.5 moveto 31 (          ) alignedtext
+0 0 0 graphcolor
+8 /Roboto set_font
+1707.5 894.5 moveto 23 (          ) alignedtext
+grestore
+% django_contrib_admin_models_LogEntry
+gsave
+0 0 1 nodecolor
+newpath 593 783 moveto
+593 910 lineto
+835 910 lineto
+835 783 lineto
+closepath fill
+0.43503 0.68605 0.33725 nodecolor
+newpath 594 887.5 moveto
+594 908.5 lineto
+834 908.5 lineto
+834 887.5 lineto
+closepath fill
+0 0 0 nodecolor
+8 /Roboto set_font
+659 896.5 moveto 14 (      ) alignedtext
+0 0 1 nodecolor
+10 /Roboto set_font
+673 896.5 moveto 96 (      LogEntry      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+596 880.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+610 880.1 moveto 10 (id) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+620 880.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+701 880.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+715 880.1 moveto 44 (AutoField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+759 880.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+596 867.1 moveto 14 (      ) alignedtext
+0 0 0.48235 nodecolor
+8 /Roboto set_font
+610 867.1 moveto 59 (content_type) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+669 867.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+701 867.1 moveto 14 (      ) alignedtext
+0 0 0.48235 nodecolor
+8 /Roboto set_font
+715 867.1 moveto 71 (ForeignKey \(id\)) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+786 867.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+596 854.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+610 854.1 moveto 20 (user) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+630 854.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+701 854.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+715 854.1 moveto 71 (ForeignKey \(id\)) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+786 854.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+596 841.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+610 841.1 moveto 46 (action_flag) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+656 841.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+701 841.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+715 841.1 moveto 103 (PositiveSmallIntegerField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+818 841.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+596 828.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+610 828.1 moveto 48 (action_time) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+658 828.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+701 828.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+715 828.1 moveto 58 (DateTimeField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+773 828.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+596 815.1 moveto 14 (      ) alignedtext
+0 0 0.48235 nodecolor
+8 /Roboto set_font
+610 815.1 moveto 73 (change_message) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+683 815.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+701 815.1 moveto 14 (      ) alignedtext
+0 0 0.48235 nodecolor
+8 /Roboto set_font
+715 815.1 moveto 35 (TextField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+750 815.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+596 802.1 moveto 14 (      ) alignedtext
+0 0 0.48235 nodecolor
+8 /Roboto set_font
+610 802.1 moveto 37 (object_id) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+647 802.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+701 802.1 moveto 14 (      ) alignedtext
+0 0 0.48235 nodecolor
+8 /Roboto set_font
+715 802.1 moveto 35 (TextField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+750 802.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+596 789.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+610 789.1 moveto 46 (object_repr) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+656 789.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+701 789.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+715 789.1 moveto 38 (CharField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+753 789.1 moveto 14 (      ) alignedtext
+1 setlinewidth
+solid
+0 0 0 nodecolor
+newpath 593 783 moveto
+593 910 lineto
+835 910 lineto
+835 783 lineto
+closepath stroke
+grestore
+% django_contrib_auth_models_User
+gsave
+0 0 1 nodecolor
+newpath 290 521 moveto
+290 696 lineto
+468 696 lineto
+468 521 lineto
+closepath fill
+0.43503 0.68605 0.33725 nodecolor
+newpath 291 664.5 moveto
+291 694.5 lineto
+467 694.5 lineto
+467 664.5 lineto
+closepath fill
+0 0 0 nodecolor
+8 /Roboto set_font
+347.5 682.5 moveto 14 (      ) alignedtext
+0 0 1 nodecolor
+10 /Roboto set_font
+361.5 682.5 moveto 49 (      User) alignedtext
+0 0 1 nodecolor
+10 /Roboto set_font
+321.5 672.5 moveto 9 (<) alignedtext
+0 0 1 nodecolor
+10 /Roboto set_font
+330.5 672.5 moveto 75 (AbstractUser) alignedtext
+0 0 1 nodecolor
+10 /Roboto set_font
+405.5 672.5 moveto 31 (>      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+293 657.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+307 657.1 moveto 10 (id) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+317 657.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+377 657.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+391 657.1 moveto 44 (AutoField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+435 657.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+293 644.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+307 644.1 moveto 49 (date_joined) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+356 644.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+377 644.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+391 644.1 moveto 60 (DateTimeField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+451 644.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+293 631.1 moveto 14 (      ) alignedtext
+0 0 0.48235 nodecolor
+8 /Roboto set_font
+307 631.1 moveto 23 (email) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+330 631.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+377 631.1 moveto 14 (      ) alignedtext
+0 0 0.48235 nodecolor
+8 /Roboto set_font
+391 631.1 moveto 43 (EmailField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+434 631.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+293 618.1 moveto 14 (      ) alignedtext
+0 0 0.48235 nodecolor
+8 /Roboto set_font
+307 618.1 moveto 43 (first_name) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+350 618.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+377 618.1 moveto 14 (      ) alignedtext
+0 0 0.48235 nodecolor
+8 /Roboto set_font
+391 618.1 moveto 39 (CharField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+430 618.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+293 605.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+307 605.1 moveto 36 (is_active) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+343 605.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+377 605.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+391 605.1 moveto 54 (BooleanField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+445 605.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+293 592.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+307 592.1 moveto 30 (is_staff) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+337 592.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+377 592.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+391 592.1 moveto 54 (BooleanField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+445 592.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+293 579.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+307 579.1 moveto 52 (is_superuser) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+359 579.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+377 579.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+391 579.1 moveto 54 (BooleanField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+445 579.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+293 566.1 moveto 14 (      ) alignedtext
+0 0 0.48235 nodecolor
+8 /Roboto set_font
+307 566.1 moveto 40 (last_login) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+347 566.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+377 566.1 moveto 14 (      ) alignedtext
+0 0 0.48235 nodecolor
+8 /Roboto set_font
+391 566.1 moveto 60 (DateTimeField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+451 566.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+293 553.1 moveto 14 (      ) alignedtext
+0 0 0.48235 nodecolor
+8 /Roboto set_font
+307 553.1 moveto 43 (last_name) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+350 553.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+377 553.1 moveto 14 (      ) alignedtext
+0 0 0.48235 nodecolor
+8 /Roboto set_font
+391 553.1 moveto 39 (CharField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+430 553.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+293 540.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+307 540.1 moveto 40 (password) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+347 540.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+377 540.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+391 540.1 moveto 39 (CharField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+430 540.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+293 527.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+307 527.1 moveto 42 (username) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+349 527.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+377 527.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+391 527.1 moveto 39 (CharField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+430 527.1 moveto 14 (      ) alignedtext
+1 setlinewidth
+solid
+0 0 0 nodecolor
+newpath 290 521 moveto
+290 696 lineto
+468 696 lineto
+468 521 lineto
+closepath stroke
+grestore
+% django_contrib_admin_models_LogEntry->django_contrib_auth_models_User
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 612.7247 774.1538 moveto
+569.3572 743.6024 518.9302 708.0777 476.0404 677.8628 curveto
+stroke
+0 0 0 edgecolor
+616.0757 776.5145 4 4 ellipse_path fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+616.0757 776.5145 4 4 ellipse_path stroke
+0 0 0 edgecolor
+8 /Roboto set_font
+586 750.1 moveto 63 ( user \(logentry\)) alignedtext
+grestore
+% django_contrib_contenttypes_models_ContentType
+gsave
+0 0 1 nodecolor
+newpath 650 20 moveto
+650 82 lineto
+800 82 lineto
+800 20 lineto
+closepath fill
+0.43503 0.68605 0.33725 nodecolor
+newpath 651 60 moveto
+651 81 lineto
+799 81 lineto
+799 60 lineto
+closepath fill
+0 0 0 nodecolor
+8 /Roboto set_font
+660 69 moveto 14 (      ) alignedtext
+0 0 1 nodecolor
+10 /Roboto set_font
+674 69 moveto 116 (      ContentType      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+653 52.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+667 52.6 moveto 10 (id) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+677 52.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+725 52.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+739 52.6 moveto 44 (AutoField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+783 52.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+653 39.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+667 39.6 moveto 40 (app_label) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+707 39.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+725 39.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+739 39.6 moveto 38 (CharField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+777 39.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+653 26.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+667 26.6 moveto 26 (model) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+693 26.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+725 26.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+739 26.6 moveto 38 (CharField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+777 26.6 moveto 14 (      ) alignedtext
+1 setlinewidth
+solid
+0 0 0 nodecolor
+newpath 650 20 moveto
+650 82 lineto
+800 82 lineto
+800 20 lineto
+closepath stroke
+grestore
+% django_contrib_admin_models_LogEntry->django_contrib_contenttypes_models_ContentType
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 832.4516 773.7236 moveto
+883.6256 733.0248 932 676.7634 932 609.5 curveto
+932 609.5 932 609.5 932 196.5 curveto
+932 132.9501 865.5911 95.0324 808.0021 74.0983 curveto
+stroke
+0 0 0 edgecolor
+829.0265 776.3981 4 4 ellipse_path fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+829.0265 776.3981 4 4 ellipse_path stroke
+0 0 0 edgecolor
+8 /Roboto set_font
+932 376.1 moveto 98 ( content_type \(logentry\)) alignedtext
+grestore
+% django_contrib_auth_models_AbstractUser
+gsave
+0 0 1 nodecolor
+newpath 328.5 297 moveto
+328.5 459 lineto
+583.5 459 lineto
+583.5 297 lineto
+closepath fill
+0.43503 0.68605 0.33725 nodecolor
+newpath 330 428 moveto
+330 458 lineto
+583 458 lineto
+583 428 lineto
+closepath fill
+0 0 0 nodecolor
+8 /Roboto set_font
+401 446 moveto 14 (      ) alignedtext
+0 0 1 nodecolor
+10 /Roboto set_font
+415 446 moveto 97 (      AbstractUser) alignedtext
+0 0 1 nodecolor
+10 /Roboto set_font
+335 436 moveto 9 (<) alignedtext
+0 0 1 nodecolor
+10 /Roboto set_font
+344 436 moveto 203 (AbstractBaseUser,PermissionsMixin) alignedtext
+0 0 1 nodecolor
+10 /Roboto set_font
+547 436 moveto 31 (>      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+332 420.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+346 420.6 moveto 49 (date_joined) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+395 420.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+454 420.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+468 420.6 moveto 58 (DateTimeField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+526 420.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+332 407.6 moveto 14 (      ) alignedtext
+0 0 0.48235 nodecolor
+8 /Roboto set_font
+346 407.6 moveto 23 (email) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+369 407.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+454 407.6 moveto 14 (      ) alignedtext
+0 0 0.48235 nodecolor
+8 /Roboto set_font
+468 407.6 moveto 42 (EmailField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+510 407.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+332 394.6 moveto 14 (      ) alignedtext
+0 0 0.48235 nodecolor
+8 /Roboto set_font
+346 394.6 moveto 43 (first_name) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+389 394.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+454 394.6 moveto 14 (      ) alignedtext
+0 0 0.48235 nodecolor
+8 /Roboto set_font
+468 394.6 moveto 38 (CharField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+506 394.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+332 381.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+346 381.6 moveto 36 (is_active) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+382 381.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+454 381.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+468 381.6 moveto 53 (BooleanField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+521 381.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+332 368.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+346 368.6 moveto 29 (is_staff) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+375 368.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+454 368.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+468 368.6 moveto 53 (BooleanField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+521 368.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+332 355.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+346 355.6 moveto 52 (is_superuser) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+398 355.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+454 355.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+468 355.6 moveto 54 (BooleanField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+522 355.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+332 342.6 moveto 14 (      ) alignedtext
+0 0 0.48235 nodecolor
+8 /Roboto set_font
+346 342.6 moveto 40 (last_login) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+386 342.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+454 342.6 moveto 14 (      ) alignedtext
+0 0 0.48235 nodecolor
+8 /Roboto set_font
+468 342.6 moveto 60 (DateTimeField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+528 342.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+332 329.6 moveto 14 (      ) alignedtext
+0 0 0.48235 nodecolor
+8 /Roboto set_font
+346 329.6 moveto 43 (last_name) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+389 329.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+454 329.6 moveto 14 (      ) alignedtext
+0 0 0.48235 nodecolor
+8 /Roboto set_font
+468 329.6 moveto 38 (CharField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+506 329.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+332 316.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+346 316.6 moveto 40 (password) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+386 316.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+454 316.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+468 316.6 moveto 39 (CharField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+507 316.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+332 303.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+346 303.6 moveto 42 (username) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+388 303.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+454 303.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+468 303.6 moveto 38 (CharField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+506 303.6 moveto 14 (      ) alignedtext
+1 setlinewidth
+solid
+0 0 0 nodecolor
+newpath 328.5 297 moveto
+328.5 459 lineto
+583.5 459 lineto
+583.5 297 lineto
+closepath stroke
+grestore
+% django_contrib_auth_base_user_AbstractBaseUser
+gsave
+0 0 1 nodecolor
+newpath 616 187 moveto
+616 208 lineto
+742 208 lineto
+742 187 lineto
+closepath fill
+0.43503 0.68605 0.33725 nodecolor
+newpath 616 186.5 moveto
+616 207.5 lineto
+742 207.5 lineto
+742 186.5 lineto
+closepath fill
+0 0 0 nodecolor
+8 /Roboto set_font
+620 194.9 moveto 5 (  ) alignedtext
+0 0 1 nodecolor
+12 /Roboto set_font
+625 194.9 moveto 108 (AbstractBaseUser) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+733 194.9 moveto 5 (  ) alignedtext
+grestore
+% django_contrib_auth_models_AbstractUser->django_contrib_auth_base_user_AbstractBaseUser
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 560.9701 292.9768 moveto
+593.5683 266.8837 626.9133 240.1927 649.8087 221.8661 curveto
+stroke
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 652.1306 224.4908 moveto
+657.7504 215.5092 lineto
+647.7562 219.0259 lineto
+closepath stroke
+0 0 0 edgecolor
+8 /Roboto set_font
+605 268.6 moveto 37 ( abstract) alignedtext
+0 0 0 edgecolor
+8 /Roboto set_font
+600 259.6 moveto 47 (inheritance) alignedtext
+grestore
+% django_contrib_auth_models_PermissionsMixin
+gsave
+0 0 1 nodecolor
+newpath 776 187 moveto
+776 208 lineto
+896 208 lineto
+896 187 lineto
+closepath fill
+0.43503 0.68605 0.33725 nodecolor
+newpath 776 186.5 moveto
+776 207.5 lineto
+896 207.5 lineto
+896 186.5 lineto
+closepath fill
+0 0 0 nodecolor
+8 /Roboto set_font
+780.5 194.9 moveto 5 (  ) alignedtext
+0 0 1 nodecolor
+12 /Roboto set_font
+785.5 194.9 moveto 101 (PermissionsMixin) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+886.5 194.9 moveto 5 (  ) alignedtext
+grestore
+% django_contrib_auth_models_AbstractUser->django_contrib_auth_models_PermissionsMixin
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 591.7669 317.1471 moveto
+644.3157 293.4647 704.7622 265.5883 759 239 curveto
+770.8788 233.1768 783.6426 226.5975 795.2953 220.4611 curveto
+stroke
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 797.1654 223.4313 moveto
+804.3642 215.6577 lineto
+793.889 217.2454 lineto
+closepath stroke
+0 0 0 edgecolor
+8 /Roboto set_font
+723 268.6 moveto 37 ( abstract) alignedtext
+0 0 0 edgecolor
+8 /Roboto set_font
+718 259.6 moveto 47 (inheritance) alignedtext
+grestore
+% django_contrib_auth_models_Permission
+gsave
+0 0 1 nodecolor
+newpath 129 160 moveto
+129 235 lineto
+325 235 lineto
+325 160 lineto
+closepath fill
+0.43503 0.68605 0.33725 nodecolor
+newpath 130 212.5 moveto
+130 233.5 lineto
+324 233.5 lineto
+324 212.5 lineto
+closepath fill
+0 0 0 nodecolor
+8 /Roboto set_font
+165.5 221.5 moveto 14 (      ) alignedtext
+0 0 1 nodecolor
+10 /Roboto set_font
+179.5 221.5 moveto 109 (      Permission      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+132 205.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+146 205.1 moveto 10 (id) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+156 205.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+223 205.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+237 205.1 moveto 44 (AutoField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+281 205.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+132 192.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+146 192.1 moveto 59 (content_type) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+205 192.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+223 192.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+237 192.1 moveto 71 (ForeignKey \(id\)) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+308 192.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+132 179.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+146 179.1 moveto 44 (codename) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+190 179.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+223 179.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+237 179.1 moveto 38 (CharField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+275 179.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+132 166.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+146 166.1 moveto 24 (name) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+170 166.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+223 166.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+237 166.1 moveto 38 (CharField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+275 166.1 moveto 14 (      ) alignedtext
+1 setlinewidth
+solid
+0 0 0 nodecolor
+newpath 129 160 moveto
+129 235 lineto
+325 235 lineto
+325 160 lineto
+closepath stroke
+grestore
+% django_contrib_auth_models_Permission->django_contrib_contenttypes_models_ContentType
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 341.1549 163.3767 moveto
+432.9163 136.7512 559.6622 99.9745 641.9756 76.0904 curveto
+stroke
+0 0 0 edgecolor
+337.0642 164.5637 4 4 ellipse_path fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+337.0642 164.5637 4 4 ellipse_path stroke
+0 0 0 edgecolor
+8 /Roboto set_font
+447 131.6 moveto 109 ( content_type \(permission\)) alignedtext
+grestore
+% django_contrib_auth_models_Group
+gsave
+0 0 1 nodecolor
+newpath 160 353.5 moveto
+160 402.5 lineto
+294 402.5 lineto
+294 353.5 lineto
+closepath fill
+0.43503 0.68605 0.33725 nodecolor
+newpath 161 380 moveto
+161 401 lineto
+293 401 lineto
+293 380 lineto
+closepath fill
+0 0 0 nodecolor
+8 /Roboto set_font
+180 389 moveto 14 (      ) alignedtext
+0 0 1 nodecolor
+10 /Roboto set_font
+194 389 moveto 80 (      Group      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+163 372.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+177 372.6 moveto 10 (id) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+187 372.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+219 372.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+233 372.6 moveto 44 (AutoField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+277 372.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+163 359.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+177 359.6 moveto 24 (name) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+201 359.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+219 359.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+233 359.6 moveto 38 (CharField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+271 359.6 moveto 14 (      ) alignedtext
+1 setlinewidth
+solid
+0 0 0 nodecolor
+newpath 160 353.5 moveto
+160 402.5 lineto
+294 402.5 lineto
+294 353.5 lineto
+closepath stroke
+grestore
+% django_contrib_auth_models_Group->django_contrib_auth_models_Permission
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 227 340.7565 moveto
+227 313.8144 227 276.7661 227 247.2322 curveto
+stroke
+0 0 0 edgecolor
+227 345.1094 4 4 ellipse_path fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+227 345.1094 4 4 ellipse_path stroke
+0 0 0 edgecolor
+227 243.116 4 4 ellipse_path fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+227 243.116 4 4 ellipse_path stroke
+0 0 0 edgecolor
+8 /Roboto set_font
+227 264.1 moveto 85 ( permissions \(group\)) alignedtext
+grestore
+% django_contrib_auth_models_User->django_contrib_auth_models_AbstractUser
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 409.543 516.8626 moveto
+414.434 502.3485 419.5041 487.3028 424.4187 472.7186 curveto
+stroke
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 427.7457 473.8057 moveto
+427.6224 463.2115 lineto
+421.1122 471.5703 lineto
+closepath stroke
+0 0 0 edgecolor
+8 /Roboto set_font
+425 492.6 moveto 37 ( abstract) alignedtext
+0 0 0 edgecolor
+8 /Roboto set_font
+420 483.6 moveto 47 (inheritance) alignedtext
+grestore
+% django_contrib_auth_models_User->django_contrib_auth_models_Permission
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 273.6441 593.1056 moveto
+195.408 576.2937 93.813 540.1654 43 463 curveto
+1.447 399.897 3.6261 357.4852 43 293 curveto
+59.2342 266.4122 85.5942 246.9924 113.3533 232.9357 curveto
+stroke
+0 0 0 edgecolor
+277.7035 593.9529 4 4 ellipse_path fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+277.7035 593.9529 4 4 ellipse_path stroke
+0 0 0 edgecolor
+117.2269 231.0473 4 4 ellipse_path fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+117.2269 231.0473 4 4 ellipse_path stroke
+0 0 0 edgecolor
+8 /Roboto set_font
+43 376.1 moveto 100 ( user_permissions \(user\)) alignedtext
+grestore
+% django_contrib_auth_models_User->django_contrib_auth_models_Group
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 314.0644 509.8829 moveto
+291.23 475.5564 267.0341 439.1828 249.9606 413.5165 curveto
+stroke
+0 0 0 edgecolor
+316.4918 513.5321 4 4 ellipse_path fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+316.4918 513.5321 4 4 ellipse_path stroke
+0 0 0 edgecolor
+247.5564 409.9022 4 4 ellipse_path fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+247.5564 409.9022 4 4 ellipse_path stroke
+0 0 0 edgecolor
+8 /Roboto set_font
+303 488.1 moveto 58 ( groups \(user\)) alignedtext
+grestore
+% django_contrib_flatpages_models_FlatPage
+gsave
+0 0 1 nodecolor
+newpath 947.5 789.5 moveto
+947.5 903.5 lineto
+1152.5 903.5 lineto
+1152.5 789.5 lineto
+closepath fill
+0.43503 0.68605 0.33725 nodecolor
+newpath 949 881.5 moveto
+949 902.5 lineto
+1152 902.5 lineto
+1152 881.5 lineto
+closepath fill
+0 0 0 nodecolor
+8 /Roboto set_font
+996 890.5 moveto 14 (      ) alignedtext
+0 0 1 nodecolor
+10 /Roboto set_font
+1010 890.5 moveto 95 (      FlatPage      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+951 874.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+965 874.1 moveto 10 (id) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+975 874.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1069 874.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1083 874.1 moveto 44 (AutoField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1127 874.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+951 861.1 moveto 14 (      ) alignedtext
+0 0 0.48235 nodecolor
+8 /Roboto set_font
+965 861.1 moveto 32 (content) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+997 861.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1069 861.1 moveto 14 (      ) alignedtext
+0 0 0.48235 nodecolor
+8 /Roboto set_font
+1083 861.1 moveto 35 (TextField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1118 861.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+951 848.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+965 848.1 moveto 76 (enable_comments) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1041 848.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1069 848.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1083 848.1 moveto 53 (BooleanField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1136 848.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+951 835.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+965 835.1 moveto 86 (registration_required) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1051 835.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1069 835.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1083 835.1 moveto 53 (BooleanField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1136 835.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+951 822.1 moveto 14 (      ) alignedtext
+0 0 0.48235 nodecolor
+8 /Roboto set_font
+965 822.1 moveto 64 (template_name) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1029 822.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1069 822.1 moveto 14 (      ) alignedtext
+0 0 0.48235 nodecolor
+8 /Roboto set_font
+1083 822.1 moveto 38 (CharField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1121 822.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+951 809.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+965 809.1 moveto 16 (title) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+981 809.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1069 809.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1083 809.1 moveto 38 (CharField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1121 809.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+951 796.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+965 796.1 moveto 11 (url) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+976 796.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1069 796.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1083 796.1 moveto 38 (CharField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1121 796.1 moveto 14 (      ) alignedtext
+1 setlinewidth
+solid
+0 0 0 nodecolor
+newpath 947.5 789.5 moveto
+947.5 903.5 lineto
+1152.5 903.5 lineto
+1152.5 789.5 lineto
+closepath stroke
+grestore
+% django_contrib_sites_models_Site
+gsave
+0 0 1 nodecolor
+newpath 979.5 577.5 moveto
+979.5 639.5 lineto
+1120.5 639.5 lineto
+1120.5 577.5 lineto
+closepath fill
+0.43503 0.68605 0.33725 nodecolor
+newpath 981 617.5 moveto
+981 638.5 lineto
+1120 638.5 lineto
+1120 617.5 lineto
+closepath fill
+0 0 0 nodecolor
+8 /Roboto set_font
+1009.5 626.5 moveto 14 (      ) alignedtext
+0 0 1 nodecolor
+10 /Roboto set_font
+1023.5 626.5 moveto 68 (      Site      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+983 610.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+997 610.1 moveto 10 (id) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1007 610.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1046 610.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1060 610.1 moveto 44 (AutoField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1104 610.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+983 597.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+997 597.1 moveto 31 (domain) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1028 597.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1046 597.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1060 597.1 moveto 38 (CharField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1098 597.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+983 584.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+997 584.1 moveto 24 (name) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1021 584.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1046 584.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1060 584.1 moveto 38 (CharField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1098 584.1 moveto 14 (      ) alignedtext
+1 setlinewidth
+solid
+0 0 0 nodecolor
+newpath 979.5 577.5 moveto
+979.5 639.5 lineto
+1120.5 639.5 lineto
+1120.5 577.5 lineto
+closepath stroke
+grestore
+% django_contrib_flatpages_models_FlatPage->django_contrib_sites_models_Site
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 1050 777.2933 moveto
+1050 736.7302 1050 686.5537 1050 651.6895 curveto
+stroke
+0 0 0 edgecolor
+1050 781.3366 4 4 ellipse_path fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+1050 781.3366 4 4 ellipse_path stroke
+0 0 0 edgecolor
+1050 647.6126 4 4 ellipse_path fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+1050 647.6126 4 4 ellipse_path stroke
+0 0 0 edgecolor
+8 /Roboto set_font
+1050 750.1 moveto 65 ( sites \(flatpage\)) alignedtext
+grestore
+% django_contrib_sessions_base_session_AbstractBaseSession
+gsave
+0 0 1 nodecolor
+newpath 1246 584 moveto
+1246 633 lineto
+1436 633 lineto
+1436 584 lineto
+closepath fill
+0.43503 0.68605 0.33725 nodecolor
+newpath 1247 610.5 moveto
+1247 631.5 lineto
+1435 631.5 lineto
+1435 610.5 lineto
+closepath fill
+0 0 0 nodecolor
+8 /Roboto set_font
+1252 619.5 moveto 14 (      ) alignedtext
+0 0 1 nodecolor
+10 /Roboto set_font
+1266 619.5 moveto 164 (      AbstractBaseSession      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1249 603.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1263 603.1 moveto 48 (expire_date) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1311 603.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1341 603.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1355 603.1 moveto 58 (DateTimeField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1413 603.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1249 590.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1263 590.1 moveto 55 (session_data) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1318 590.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1341 590.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1355 590.1 moveto 35 (TextField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1390 590.1 moveto 14 (      ) alignedtext
+1 setlinewidth
+solid
+0 0 0 nodecolor
+newpath 1246 584 moveto
+1246 633 lineto
+1436 633 lineto
+1436 584 lineto
+closepath stroke
+grestore
+% django_contrib_sessions_models_Session
+gsave
+0 0 1 nodecolor
+newpath 1250.5 811 moveto
+1250.5 882 lineto
+1431.5 882 lineto
+1431.5 811 lineto
+closepath fill
+0.43503 0.68605 0.33725 nodecolor
+newpath 1252 850.5 moveto
+1252 880.5 lineto
+1431 880.5 lineto
+1431 850.5 lineto
+closepath fill
+0 0 0 nodecolor
+8 /Roboto set_font
+1301 868.5 moveto 14 (      ) alignedtext
+0 0 1 nodecolor
+10 /Roboto set_font
+1315 868.5 moveto 67 (      Session) alignedtext
+0 0 1 nodecolor
+10 /Roboto set_font
+1262 858.5 moveto 9 (<) alignedtext
+0 0 1 nodecolor
+10 /Roboto set_font
+1271 858.5 moveto 119 (AbstractBaseSession) alignedtext
+0 0 1 nodecolor
+10 /Roboto set_font
+1390 858.5 moveto 31 (>      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1254 843.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1268 843.1 moveto 53 (session_key) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1321 843.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1341 843.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1355 843.1 moveto 44 (CharField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1399 843.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1254 830.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1268 830.1 moveto 49 (expire_date) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1317 830.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1341 830.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1355 830.1 moveto 60 (DateTimeField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1415 830.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1254 817.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1268 817.1 moveto 55 (session_data) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1323 817.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1341 817.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1355 817.1 moveto 37 (TextField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1392 817.1 moveto 14 (      ) alignedtext
+1 setlinewidth
+solid
+0 0 0 nodecolor
+newpath 1250.5 811 moveto
+1250.5 882 lineto
+1431.5 882 lineto
+1431.5 811 lineto
+closepath stroke
+grestore
+% django_contrib_sessions_models_Session->django_contrib_sessions_base_session_AbstractBaseSession
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 1341 806.7937 moveto
+1341 762.6995 1341 691.1112 1341 647.3688 curveto
+stroke
+1 setlinewidth
+solid
+0 0 0 edgecolor
+newpath 1344.5001 647.1477 moveto
+1341 637.1478 lineto
+1337.5001 647.1478 lineto
+closepath stroke
+0 0 0 edgecolor
+8 /Roboto set_font
+1346 754.6 moveto 37 ( abstract) alignedtext
+0 0 0 edgecolor
+8 /Roboto set_font
+1341 745.6 moveto 47 (inheritance) alignedtext
+grestore
+% apptestforadminpanel_models_Author
+gsave
+0 0 1 nodecolor
+newpath 1528 314.5 moveto
+1528 441.5 lineto
+1698 441.5 lineto
+1698 314.5 lineto
+closepath fill
+0.43503 0.68605 0.33725 nodecolor
+newpath 1529 419 moveto
+1529 440 lineto
+1697 440 lineto
+1697 419 lineto
+closepath fill
+0 0 0 nodecolor
+8 /Roboto set_font
+1564.5 428 moveto 14 (      ) alignedtext
+0 0 1 nodecolor
+10 /Roboto set_font
+1578.5 428 moveto 83 (      Author      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1531 411.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1545 411.6 moveto 10 (id) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1555 411.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1608 411.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1622 411.6 moveto 59 (BigAutoField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1681 411.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1531 398.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1545 398.6 moveto 16 (age) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1561 398.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1608 398.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1622 398.6 moveto 49 (IntegerField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1671 398.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1531 385.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1545 385.6 moveto 18 (mail) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1563 385.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1608 385.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1622 385.6 moveto 42 (EmailField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1664 385.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1531 372.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1545 372.6 moveto 24 (name) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1569 372.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1608 372.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1622 372.6 moveto 38 (CharField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1660 372.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1531 359.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1545 359.6 moveto 37 (surname) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1582 359.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1608 359.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1622 359.6 moveto 38 (CharField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1660 359.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1531 346.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1545 346.6 moveto 11 (tel) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1556 346.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1608 346.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1622 346.6 moveto 38 (CharField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1660 346.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1531 333.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1545 333.6 moveto 5 (x) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1550 333.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1608 333.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1622 333.6 moveto 49 (IntegerField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1671 333.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1531 320.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1545 320.6 moveto 45 (xTimesTwo) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1590 320.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1608 320.6 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1622 320.6 moveto 49 (IntegerField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1671 320.6 moveto 14 (      ) alignedtext
+1 setlinewidth
+solid
+0 0 0 nodecolor
+newpath 1528 314.5 moveto
+1528 441.5 lineto
+1698 441.5 lineto
+1698 314.5 lineto
+closepath stroke
+grestore
+% apptestforadminpanel_models_Book
+gsave
+0 0 1 nodecolor
+newpath 1510.5 564.5 moveto
+1510.5 652.5 lineto
+1715.5 652.5 lineto
+1715.5 564.5 lineto
+closepath fill
+0.43503 0.68605 0.33725 nodecolor
+newpath 1512 630.5 moveto
+1512 651.5 lineto
+1715 651.5 lineto
+1715 630.5 lineto
+closepath fill
+0 0 0 nodecolor
+8 /Roboto set_font
+1570 639.5 moveto 14 (      ) alignedtext
+0 0 1 nodecolor
+10 /Roboto set_font
+1584 639.5 moveto 73 (      Book      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1514 623.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1528 623.1 moveto 10 (id) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1538 623.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1614 623.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1628 623.1 moveto 44 (AutoField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1672 623.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1514 610.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1528 610.1 moveto 31 (author) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1559 610.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1614 610.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1628 610.1 moveto 71 (ForeignKey \(id\)) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1699 610.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1514 597.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1528 597.1 moveto 46 (description) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1574 597.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1614 597.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1628 597.1 moveto 38 (CharField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1666 597.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1514 584.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1528 584.1 moveto 68 (nb_selled_books) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1596 584.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1614 584.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1628 584.1 moveto 49 (IntegerField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1677 584.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1514 571.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1528 571.1 moveto 16 (title) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1544 571.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1614 571.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1628 571.1 moveto 38 (CharField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1666 571.1 moveto 14 (      ) alignedtext
+1 setlinewidth
+solid
+0 0 0 nodecolor
+newpath 1510.5 564.5 moveto
+1510.5 652.5 lineto
+1715.5 652.5 lineto
+1715.5 564.5 lineto
+closepath stroke
+grestore
+% apptestforadminpanel_models_Book->apptestforadminpanel_models_Author
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 1613 552.0396 moveto
+1613 519.9339 1613 479.3149 1613 445.5006 curveto
+stroke
+0 0 0 edgecolor
+1613 556.4317 4 4 ellipse_path fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+1613 556.4317 4 4 ellipse_path stroke
+0 0 0 edgecolor
+8 /Roboto set_font
+1613 488.1 moveto 58 ( author \(book\)) alignedtext
+grestore
+% apptestforadminpanel_models_Genre
+gsave
+0 0 1 nodecolor
+newpath 1538.5 822 moveto
+1538.5 871 lineto
+1687.5 871 lineto
+1687.5 822 lineto
+closepath fill
+0.43503 0.68605 0.33725 nodecolor
+newpath 1540 848.5 moveto
+1540 869.5 lineto
+1687 869.5 lineto
+1687 848.5 lineto
+closepath fill
+0 0 0 nodecolor
+8 /Roboto set_font
+1567 857.5 moveto 14 (      ) alignedtext
+0 0 1 nodecolor
+10 /Roboto set_font
+1581 857.5 moveto 79 (      Genre      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1542 841.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1556 841.1 moveto 10 (id) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1566 841.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1598 841.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1612 841.1 moveto 59 (BigAutoField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1671 841.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1542 828.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1556 828.1 moveto 24 (name) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1580 828.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1598 828.1 moveto 14 (      ) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1612 828.1 moveto 38 (CharField) alignedtext
+0 0 0 nodecolor
+8 /Roboto set_font
+1650 828.1 moveto 14 (      ) alignedtext
+1 setlinewidth
+solid
+0 0 0 nodecolor
+newpath 1538.5 822 moveto
+1538.5 871 lineto
+1687.5 871 lineto
+1687.5 822 lineto
+closepath stroke
+grestore
+% apptestforadminpanel_models_Genre->apptestforadminpanel_models_Book
+gsave
+1 setlinewidth
+0 0 0 edgecolor
+newpath 1613 809.9191 moveto
+1613 771.4902 1613 709.7641 1613 664.9581 curveto
+stroke
+0 0 0 edgecolor
+1613 813.9659 4 4 ellipse_path fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+1613 813.9659 4 4 ellipse_path stroke
+0 0 0 edgecolor
+1613 660.7982 4 4 ellipse_path fill
+1 setlinewidth
+solid
+0 0 0 edgecolor
+1613 660.7982 4 4 ellipse_path stroke
+0 0 0 edgecolor
+8 /Roboto set_font
+1613 750.1 moveto 88 ( linked_books \(genre\)) alignedtext
+grestore
+endpage
+showpage
+grestore
+%%PageTrailer
+%%EndPage: 1
+%%Trailer
+%%Pages: 1
+%%BoundingBox: 36 36 1795 1001
+end
+restore
+%%EOF
