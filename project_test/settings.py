@@ -32,12 +32,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.auth',
 	'django_extensions',
     'django.contrib.admin',
-    'django.contrib.auth',
     'django.contrib.contenttypes',
 	'django.contrib.flatpages',
     'django.contrib.messages',
+    'django_admin_inline_paginator',
     'django.contrib.sessions',
 	'django.contrib.sites',
     'django.contrib.staticfiles',

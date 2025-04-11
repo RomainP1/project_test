@@ -1,13 +1,68 @@
+import factory
+from faker import Faker
 
 from django.contrib import admin, messages
 from django import forms
+from django_admin_inline_paginator.admin import TabularInlinePaginated
 from django.contrib.auth.models import Group, User, Permission
 from django.contrib.contenttypes.models import ContentType
-from .models import Author, Book, Genre
+from .models import Author, Book, Genre, RelationBookGenre, Review
 from django.utils.translation import ngettext
+from django.utils.html import format_html
 import re # regex
-from faker import Faker
 import random as rd
+from django.urls import reverse
+from django.utils.http import urlencode
+
+## A DEPLACER DANS utils.py :
+
+def disable_fields(form_fields, editable_fields=[]):
+	""" Description
+
+		:type form_fields: List
+		:param form_fields: your form's fields
+		
+		:type editable_fields: List
+		:param editable_fields: the specifics fields you want to be editable
+	
+		:rtype: void
+		:returns: nothing
+	""" 
+
+	form_fields_keys = list(form_fields.keys())
+
+	for champ in form_fields_keys:
+		if champ not in editable_fields:
+			form_fields[champ].disabled = True
+			form_fields[champ].widget.attrs.update({ 'style': 'background-color:#eee !important; color:#888 !important'})
+
+#	for	champ in uneditable_fields:
+#		if champ in form_fields_keys:
+#			form_fields[champ].disabled = True
+#			form_fields[champ].widget.attrs.update({ 'style': 'background-color:#eee !important; color:#888 !important'})
+
+
+def get_user_group(request):
+	
+	""" Description
+	:type request: HttpRequest
+	:param request: request made by the user, when asking 
+					for something from the django-admin panel
+
+	:rtype: String|None
+	:returns: The current UNIQUE user group or None if he don't have one
+	"""
+
+	if (len(list(request.user.groups.all())) == 0):
+		return None
+	return list(request.user.groups.all())[0].__str__()
+##
+
+########################### ATTENTION #############################
+# Si la base de données est recréée, il faut impérativement
+# que les lignes concernant la création / gestion des groupes
+# utilisateurs soient enlevés du code
+###################################################################
 
 # Création / récupération des groupes 
 
@@ -25,14 +80,14 @@ genre_content_type = ContentType.objects.get_for_model(Genre)
 # content_type = apps.get_models()
 
 # On récupère les permissions pour chaque modèle (CRUD de chaque modèle)
-post_permission = Permission.objects.filter(content_type__in=[book_content_type, author_content_type, genre_content_type])
+models_permissions = Permission.objects.filter(content_type__in=[book_content_type, author_content_type, genre_content_type])
 
-# print([perm.codename for perm in post_permission]) # DEBUG
-# => ['add_post', 'change_post', 'delete_post', 'view_post']
+# print([perm.codename for perm in model_permission]) # DEBUG
+# => ['add_model', 'change_model', 'delete_model', 'view_model']
 
 # Attribution des permissions 
 
-for perm in post_permission:
+for perm in models_permissions:
 	if re.search("^delete_.*$", perm.codename):
 		deploy_group.permissions.add(perm)
 	elif re.search("^change_.*$", perm.codename):
@@ -53,8 +108,8 @@ for perm in post_permission:
 
 # Obtention d'un user
 
-user = User.objects.get(username="john")
-user.groups.add(view_group)  # Add the user to the Lecture group
+# user = User.objects.get(username="john")
+# user.groups.add(view_group)  # Add the user to the Lecture group
 
 # Register your models here.
 
@@ -107,7 +162,7 @@ class ViewerAuthorForm(forms.ModelForm):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		
-		disable_fields(self.fields, ['name', 'surname', 'age', 'tel', 'mail', 'x',])
+		disable_fields(self.fields)
 
 class DeployAuthorForm(forms.ModelForm):
 	model = Author
@@ -117,7 +172,7 @@ class DeployAuthorForm(forms.ModelForm):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		
-		disable_fields(self.fields, ['tel', 'mail', 'x',])
+		disable_fields(self.fields, ['name', 'surname', 'age',])
 
 class SupportAuthorForm(forms.ModelForm):
 	model = Author
@@ -127,8 +182,84 @@ class SupportAuthorForm(forms.ModelForm):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		
-		disable_fields(self.fields, ['name', 'surname', 'age',])
+		disable_fields(self.fields, ['tel', 'mail', 'x',])
 
+# Permet de gérer les formulaires (add et edit) // Encore à voir
+class AdminBookForm(forms.ModelForm):
+	model = Book
+	class Meta:
+		# Indique qu'on veut tous les champs du modèle
+		fields = "__all__"
+
+class ViewerBookForm(forms.ModelForm):
+	model = Book
+	class Meta:
+		# Affichage des champs dans la page d'ajout / edit
+		fields = "__all__"
+		
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		# Liste des champs que tu veux rendre non modifiables
+		
+		disable_fields(self.fields, ['description',])
+
+class NoGroupsForm(forms.ModelForm):
+	class Meta:
+		fields = "__all__"
+		
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+
+		# Liste des champs que tu veux rendre non modifiables
+		disable_fields(self.fields)
+
+class DeployAndSupportBookForm(forms.ModelForm):
+	model = Book
+	class Meta:
+		# Affichage des champs dans la page d'ajout / edit
+		fields = "__all__"
+		
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+
+		# Liste des champs que tu veux rendre non modifiables
+		disable_fields(self.fields, ['title', 'author',])
+
+
+
+class InlineBookAdmin(TabularInlinePaginated):
+
+	model = Book
+	form = ViewerBookForm
+	per_page = 5
+
+class InlineReviewsAdmin(TabularInlinePaginated):
+
+	model = Review
+	# form = ViewerReviewForm
+	per_page = 25
+
+class InlineRelationBookGenreAdmin(admin.TabularInline):
+	model = RelationBookGenre
+	extra = 0
+
+	autocomplete_fields = ['book',]
+	fields = ["book_title_display",]
+	# book_title_display est un champ calculé donc il doit être
+	# un paramètre de readonly_fields AUSSI
+	readonly_fields = ["book_title_display",]
+	def get_ordering(self, request):
+		return None
+
+	# Permet de n'afficher que les livres
+	def get_queryset(self, request):
+		query_set = super().get_queryset(request)
+		return query_set.only("book")
+	
+	def book_title_display(self, obj):
+	    return format_html(
+            '<span style="color:rgb(92, 74, 63); font-size: 30px;">{}</span>',
+            obj.book.title,) if obj.book else "-"
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
@@ -137,6 +268,8 @@ class AuthorAdmin(admin.ModelAdmin):
 	list_display = ['__str__']
 	# Gère la pagination
 	list_per_page = 25
+
+	inlines = [InlineBookAdmin]
 
 	actions = [actiondonnee, seconde_action_donnee, 
 			   troisieme_action_donnee, quatrieme_action_donnee]
@@ -226,55 +359,29 @@ class AuthorAdmin(admin.ModelAdmin):
 		queryset |= self.model.objects.filter(name=search_term)
 		return queryset, may_have_duplicates
 
-
-# Permet de gérer les formulaires (add et edit) // Encore à voir
-class AdminBookForm(forms.ModelForm):
-	model = Book
-	class Meta:
-		# Indique qu'on veut tous les champs du modèle
-		fields = "__all__"
-
-class ViewerBookForm(forms.ModelForm):
-	model = Book
-	class Meta:
-		# Affichage des champs dans la page d'ajout / edit
-		fields = "__all__"
-		
-	def __init__(self, *args, **kwargs):
-		super().__init__(*args, **kwargs)
-		# Liste des champs que tu veux rendre non modifiables
-		
-		disable_fields(self.fields, ['nb_selled_books', 'author', 'title'])
-
-class NoGroupsForm(forms.ModelForm):
-	class Meta:
-		fields = "__all__"
-		
-	def __init__(self, *args, **kwargs):
-		super().__init__(*args, **kwargs)
-
-		# Liste des champs que tu veux rendre non modifiables
-		disable_fields(self.fields, list(self.fields.keys()))
-
-class DeployAndSupportBookForm(forms.ModelForm):
-	model = Book
-	class Meta:
-		# Affichage des champs dans la page d'ajout / edit
-		fields = "__all__"
-		
-	def __init__(self, *args, **kwargs):
-		super().__init__(*args, **kwargs)
-
-		# Liste des champs que tu veux rendre non modifiables
-		disable_fields(self.fields, ['nb_selled_books', 'description'])
-
-
 		
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
 
+	search_fields = ["title"]
+
 	# Champs affichés
-	list_display = ['titre_colore', 'description', 'author', "nb_selled_books"]
+	list_display = ['titre_colore', 'description', 'author', "nb_selled_books", "view_genres_link"]
+
+	# Définition d'un brenda_adminchamp du list_display
+	def view_genres_link(self, obj):
+		count = getattr(obj, "genre_set").count()
+		
+		# Permet de créer une URL pour rediriger sur les M2M
+		url = (
+			# Format général : "admin:<nom_app>_<obj_reference>_changelist"
+            reverse("admin:apptestforadminpanel_genre_changelist")
+            + "?" # Agit comme un WHERE
+			# Format général : "<obj>__<elt_pour_where>"
+            + urlencode({"book__id": f"{obj.id}"})
+        )
+        
+		return format_html('<a href="{}">{} Genres</a>', url, count)
 
 	# Spécifie quelles actions sont liées à la page admin associée
 	actions = [actiondonnee, seconde_action_donnee]
@@ -296,12 +403,14 @@ class BookAdmin(admin.ModelAdmin):
 
 @admin.register(Genre)
 class GenreAdmin(admin.ModelAdmin):
+	 
 
 	# Page perso html pour ajout / modification d'un elt
 	# change_form_template = "/home/loris/romain_porcer/django_tests/tutorial/project_test/apptestforadminpanel/templates/admin/apptestforadminpanel/adminPanelTest.html"
-
-
+	search_fields = ["title"]
 	filter_horizontal = ["linked_books"]
+	inlines = [InlineRelationBookGenreAdmin]
+
 
 	# Sert à modifier tout des interfaces CRUD admin
 	# Code de la doc  https://docs.djangoproject.com/fr/5.2/ref/contrib/admin/#django.contrib.admin.ModelAdmin.change_view
@@ -327,14 +436,30 @@ class GenreAdmin(admin.ModelAdmin):
 # radio_fields = {"group": admin.VERTICAL}  # Pour admin
 
 
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+	list_display = ["title", "description", "view_note_link", "view_reviewed_book_link",]
+
+	# On crée une nouvelle façon d'afficher quelque chose sur la liste
+	def view_note_link(self, obj):
+		return format_html("<span style='color:#222'>{}/5</span>", obj.overall_note)
+
+	def view_reviewed_book_link(self, obj):
+		# Redirige sur la page du livre
+		return format_html("<a href='../book/{}'>{}</a>", obj.reviewed_book.id, obj.reviewed_book.title)
+
+	# On redéfini le champ de la liste
+	view_note_link.short_description = "Note"
+	view_reviewed_book_link.short_description = "Livre revu"
 ##########################################################################
 #                      GENERATION DE DONNEES FACTICES					 
 
 fake = Faker(locale="fr_FR")
 
-NB_AUTEURS = 100
-NB_GENRES = 10
-NB_LIVRES = 200
+NB_AUTEURS = 0
+NB_LIVRES = 0
+NB_GENRES = 0
+NB_REVUES = 0
 
 def create_authors():
 	authors = []
@@ -359,7 +484,7 @@ def create_authors():
 
 def create_books(authors):
 	books = []
-	for r in range(NB_AUTEURS):
+	for r in range(NB_LIVRES):
 		ftitle = fake.word()
 		fdescription = fake.sentence()
 		fselled_books = fake.numerify(text="%%%%")
@@ -370,13 +495,14 @@ def create_books(authors):
 			nb_selled_books = fselled_books,
 			author = fauthor
 		)
+		book.save()
 		books.append(book)
 	return books
 
 
 def create_genres(books):
 	genres = []
-	for r in range(NB_AUTEURS):
+	for r in range(NB_GENRES):
 		fname = fake.job()
 		flinked_books = rd.choices(books, k = 20)
 
@@ -388,48 +514,31 @@ def create_genres(books):
 		genres.append(genre)
 	return genres
 
+
+def create_reviews():
+	reviews = []
+	for r in range(NB_REVUES):
+		ftitle = fake.word()
+		fdescription = fake.text()
+		foverall_note = rd.randint(1, 5)
+		review = Review.objects.create(
+			title = ftitle,
+			description = fdescription,
+			overall_note = foverall_note,
+			reviewed_book = rd.choice(Book.objects.all())
+		)
+
+		review.save()
+
+		reviews.append(review)
+	return reviews
+
+
 authors = create_authors()
 books = create_books(authors)
 create_genres(books)
+create_reviews()
 #																		
 ##########################################################################
 
 
-## A DEPLACER DANS utils.py :
-
-def disable_fields(form_fields, uneditable_fields):
-	""" Description
-
-		:type form_fields: List
-		:param form_fields: your form's fields
-		
-		:type uneditable_fields: List
-		:param uneditable_fields: the specifics fields you don't want to be editable
-	
-		:rtype: void
-		:returns: nothing
-	""" 
-
-	form_fields_keys = list(form_fields.keys())
-
-	for	champ in uneditable_fields:
-		if champ in form_fields_keys:
-			form_fields[champ].disabled = True
-			form_fields[champ].widget.attrs.update({ 'style': 'background-color:#eee !important; color:#888 !important'})
-
-
-def get_user_group(request):
-	
-	""" Description
-	:type request: HttpRequest
-	:param request: request made by the user, when asking 
-					for something from the django-admin panel
-
-	:rtype: String|None
-	:returns: The current UNIQUE user group or None if he don't have one
-	"""
-
-	if (len(list(request.user.groups.all())) == 0):
-		return None
-	return list(request.user.groups.all())[0].__str__()
-##

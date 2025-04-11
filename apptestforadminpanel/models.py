@@ -30,7 +30,7 @@ class Book(models.Model):
 
 
 	def __str__(self):
-		return f"{self.title} | par {self.author}"
+		return  self.title
 	
 	# Permet de gérer l'affichage de chaque élément d'une colonne (ici title)
 	@admin.display(ordering="title")
@@ -42,7 +42,21 @@ class Book(models.Model):
 
 class Genre(models.Model):
 	name = models.CharField(max_length=100)
-	linked_books = models.ManyToManyField(Book)
+	linked_books = models.ManyToManyField(Book, through="RelationbookGenre")
 
 	def __str__(self):
 		return self.name
+
+class Review(models.Model):
+	title = models.CharField(max_length=50)
+	description = models.CharField(max_length=400)
+	overall_note = models.IntegerField()
+	reviewed_book = models.ForeignKey(Book, on_delete=models.CASCADE)
+	
+class RelationBookGenre(models.Model):
+	book = models.ForeignKey(Book, on_delete=models.CASCADE)
+	genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
+	note = models.TextField(max_length=200, default="")
+
+	def __str__(self):
+		return self.book.title
