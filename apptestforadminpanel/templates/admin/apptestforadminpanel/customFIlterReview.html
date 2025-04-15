@@ -72,7 +72,7 @@
 
     var listData = []; // Contient toutes les données de la liste
 
-    var currentPage = 1; // Par défaut
+    var currentPage = 251; // Par défaut //FIXME fonctionne quand on m'initialise 
 
 
     function getListData() {
@@ -92,16 +92,9 @@
       toShowData = listData.splice(ELEMENT_PER_PAGE * (currentPage - 1), 
       ELEMENT_PER_PAGE);
 
-      console.log(ELEMENT_PER_PAGE * (currentPage - 1), 
-      (ELEMENT_PER_PAGE * currentPage) - 1)
-
       $(".list-value").each(function() {
-        console.log($(this).css("display"))
-        if (jQuery.inArray($(this).prop('outerHTML'), toShowData) > -1) {
-            
-          if ($(this).hasClass("out-of-pagination")) {
-            $(this).removeClass("out-of-pagination");
-          }
+        if (jQuery.inArray($(this).prop('outerHTML'), toShowData) > -1) {       
+          $(this).removeClass("out-of-pagination");
         } else {
           $(this).addClass("out-of-pagination");
         }
