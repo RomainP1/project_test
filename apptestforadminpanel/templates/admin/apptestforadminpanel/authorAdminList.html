@@ -1,0 +1,10 @@
+{% extends 'admin/change_list.html' %} <!-- On recharge la template des listes de django-->
+
+
+
+
+{% block object-tools %}
+	<a href="/apptestforadminpanel/templates/csvImportPage.html">Import CSV</a>
+	{{ block.super }}
+	
+{% endblock %}

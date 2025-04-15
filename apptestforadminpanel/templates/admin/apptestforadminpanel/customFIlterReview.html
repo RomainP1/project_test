@@ -1,0 +1,207 @@
+
+<!-- Cette page est basé sur la page utilisé par le list filter -->
+
+<script src="../../../static/pagination.js" defer></script>
+
+<!-- CDN de Jquery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script src="https://pagination.js.org/dist/2.6.0/pagination.min.js"></script>
+
+<style>
+
+.btn-list-filter-pagination-nav {
+	list-style-type: none;
+	width: 25px;
+	height: 25px;
+  border-width: 1px;
+  border-color: rgb(172, 172, 172);
+  border-style: solid;
+  display: flex;
+  justify-content: center
+}
+
+.out-of-pagination {
+	display: none !important;
+	background-color: rgb(1, 18, 255) !important;
+}
+
+#pagination-container ul {
+  display: flex;
+}
+
+</style>
+
+{% load i18n %}
+<link rel="stylesheet" type="text/css" href="../../../static/css/utils.css">
+
+<details data-filter-title="{{ title }}" open>
+  <summary>
+    {% blocktranslate with filter_title=title %} By {{ filter_title }} {% endblocktranslate %}
+  </summary>
+  <input id="search-bar-input" type="text" placeholder="Entrez le nom du livre ici...">
+  <div id="listfilter-container">
+    <table id="books-list">
+      <!-- Modification de la <ul> en <table> pour mieux utiliser Jquery-->
+      {% for choice in choices %}
+        <tr {% if choice.selected %} class="selected"{% endif %}>
+        <td class="list-value"> <a href="{{ choice.query_string|iriencode }}">{{ choice.display }}</a></td></tr>
+      {% endfor %}
+      </table>
+  </div>
+
+  <!-- Conteneur de pagination, ici on l'ajoute sous la table -->
+  <div id="pagination-container"></div>   
+
+</details>
+
+<!-- function simpleTemplating(data) {
+  var html = '<table>';
+  $.each(data, function(index, elt) {
+    html += `<tr>${elt}</tr>`;
+  });
+  html += "</table>";
+  return html;
+} -->
+
+<script>
+  $(document).ready(function(){ // Attend que le DOM soit prêt pour charger le contenu
+  
+    var ELEMENT_PER_PAGE = 20;
+    var PAGINATION_BASE_ID = "pagination-btn";
+
+    var listData = []; // Contient toutes les données de la liste
+
+    var currentPage = 1; // Par défaut
+
+
+    function getListData() {
+
+      listData = [];
+      $(".list-value").each(function() {
+        if ($(this).is(":visible")) {
+          listData.push($(this).prop('outerHTML'))
+
+        }
+      })  
+    }
+
+    function showMatchingPage() {
+
+      getListData()
+      toShowData = listData.splice(ELEMENT_PER_PAGE * (currentPage - 1), 
+      ELEMENT_PER_PAGE);
+
+      console.log(ELEMENT_PER_PAGE * (currentPage - 1), 
+      (ELEMENT_PER_PAGE * currentPage) - 1)
+
+      $(".list-value").each(function() {
+        console.log($(this).css("display"))
+        if (jQuery.inArray($(this).prop('outerHTML'), toShowData) > -1) {
+            
+          if ($(this).hasClass("out-of-pagination")) {
+            $(this).removeClass("out-of-pagination");
+          }
+        } else {
+          $(this).addClass("out-of-pagination");
+        }
+      })
+
+      toShowData = []
+    }
+
+    // Fonction pour initialiser la pagination
+    function doPagination(numberOfPage, btnBaseId) {
+      
+      if (listData.length > 0) {
+        // TODO : Gérer la pagination
+        showMatchingPage()
+        console.log(listData.length)
+        $(".list-value").each(function() {
+          // console.log($(this).html());
+        })
+
+        $(document).on("click" ,`#${btnBaseId}-prev` ,function() {
+          currentPage--;
+          $("#pagination-container").html(getPaginationNav(currentPage, numberOfPage, btnBaseId));
+          showMatchingPage()
+        })
+
+        $(document).on("click" ,`#${btnBaseId}-next` ,function() {
+          currentPage++;
+          $("#pagination-container").html(getPaginationNav(currentPage, numberOfPage, btnBaseId));
+          showMatchingPage()
+        })
+      } else {
+        console.error('Aucune donnée à afficher pour la pagination.');
+      }
+    }
+
+    getListData()
+    $("#pagination-container").html(getPaginationNav(currentPage, listData.length / ELEMENT_PER_PAGE, PAGINATION_BASE_ID));
+    doPagination(listData.length / ELEMENT_PER_PAGE, PAGINATION_BASE_ID)
+    
+    // Dès que l'utilisateur lâche une touche sur la zone de saisi (keyup)
+    $("#search-bar-input").on("keyup", function() { 
+      // Ici, $(this) représente la barre de recherche de la liste
+      
+      var value = $(this).val().toLowerCase(); // Valeur de la barre de recherche
+      $("#books-list tr td").filter(function() { // Permet de filtrer la table des livres (List Filter)
+        // Ici, $(this) représente un élément de la liste (filter fait comme un parcours de liste)
+        
+        // $(this).toggle(condition) <=> fait disparaitre l'élément de la liste si condition est 'true' 
+        $(this).toggle($(this).text() // Récupère le nom du livre parcouru dans la liste
+                              .toLowerCase() // Le met en lowercase
+                              .indexOf(value) > -1);
+        // -- EXPLICATION DU indexOf() --
+        // "a".indexOf("b") => -1 car "a" ne contient pas "b" mais
+        // "fabrice".indexOf("b") => 2 car la 1ere occurrence de "b" est en indice 2
+        
+      });
+      currentPage = 1;
+      // $(this) change car pour chaque cas, on associe à this 
+      // "l'élément" modifiable de la fonction anonyme
+      
+      getListData()
+      doPagination(listData.length / ELEMENT_PER_PAGE, PAGINATION_BASE_ID)
+    });
+
+    function getPaginationNav(actualPage, numberOfPage, btnBaseId) {
+      console.log("APPEL DE GETPAGINATION")
+      let navBar = "<ul>";
+
+      navBar += `<li id="${btnBaseId}-prev" class="btn-list-filter-pagination-nav">‹</li>`;
+
+      if (actualPage - 5 > 3) {
+        for (let pageNumber = 1; pageNumber < 3; pageNumber++) {
+        if (pageNumber >= 1 && pageNumber <= numberOfPage) {
+          navBar += `<li id="${btnBaseId}-${pageNumber}" class="btn-list-filter-pagination-nav">${pageNumber}</li>`;
+        }
+        }
+        navBar += `<li class="btn-list-filter-pagination-nav">...</li>`;
+      }
+
+      for (let pageNumber = actualPage - 1; pageNumber <= actualPage + 1; pageNumber++) {
+        console.log(`PAGE NUMBER ${pageNumber} | ACTUAL PAGE ${actualPage} |`);
+        if (pageNumber >= 1 && pageNumber <= numberOfPage) {
+        navBar += `<li id="${btnBaseId}-${pageNumber}" class="btn-list-filter-pagination-nav">${pageNumber}</li>`;
+        }
+      }
+
+      if (actualPage + 5 < numberOfPage) {
+        navBar += `<li class="btn-list-filter-pagination-nav">...</li>`;
+        for (let pageNumber = Math.round(numberOfPage) - 1; pageNumber < numberOfPage; pageNumber++) {
+          if (pageNumber >= 1 && pageNumber <= numberOfPage) {
+            navBar += `<li id="${btnBaseId}-${pageNumber}" class="btn-list-filter-pagination-nav">${pageNumber}</li>`;
+          }
+        }
+      }
+
+      navBar += `<li id="${btnBaseId}-next" class="btn-list-filter-pagination-nav">›</li>`;
+
+      navBar += "</ul>";
+
+      return navBar;
+    }
+  });
+</script>

@@ -32,16 +32,17 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.staticfiles',
     'django.contrib.auth',
 	'django_extensions',
     'django.contrib.admin',
     'django.contrib.contenttypes',
+	'import_export',
 	'django.contrib.flatpages',
     'django.contrib.messages',
     'django_admin_inline_paginator',
     'django.contrib.sessions',
 	'django.contrib.sites',
-    'django.contrib.staticfiles',
 	'apptestforadminpanel.apps.ApptestforadminpanelConfig',
 ]
 

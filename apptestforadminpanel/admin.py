@@ -1,8 +1,9 @@
 import factory
 from faker import Faker
-
+from import_export import resources
 from django.contrib import admin, messages
 from django import forms
+from django.shortcuts import redirect, render
 from django_admin_inline_paginator.admin import TabularInlinePaginated
 from django.contrib.auth.models import Group, User, Permission
 from django.contrib.contenttypes.models import ContentType
@@ -13,6 +14,8 @@ import re # regex
 import random as rd
 from django.urls import reverse
 from django.utils.http import urlencode
+import csv
+from import_export.admin import ImportExportModelAdmin
 
 ## A DEPLACER DANS utils.py :
 
@@ -144,7 +147,50 @@ def troisieme_action_donnee(modeladmin, request, queryset):
 @admin.action(description="Fais une autre action [D]")
 def quatrieme_action_donnee(modeladmin, request, queryset):
 	pass
+
+
+
+def list_filter_factory(title_p="", parameter_name_p=""):
+
+	""" Description : A little factory (not a real one) made to
+					  pass parameters into a ListFilter, in order to
+					  make it more reusable
+
+		:type title_p: String 
+		:param title_p: The name to display over the filter
 	
+		:type parameter_name_p: String
+		:param parameter_name_p: The filter name when you click on a filter element
+	
+		:rtype: ListFilter
+		:returns: A customized ListFilter
+		"""
+	class ListFilter(admin.SimpleListFilter):
+
+		title = title_p
+		parameter_name = parameter_name_p
+
+		# Cette template de list-filter sert à gérer un affichage plus poussé
+		template = "/home/loris/romain_porcer/django_tests/tutorial/project_test/apptestforadminpanel/templates/admin/apptestforadminpanel/customFIlterReview.html"
+		
+		# Gère les données de la liste
+		def lookups(self, request, model_admin):
+			# Renvoi une liste de tuples : (idDonnee, donneeAAfficher)
+			return [(str(cat.pk), str(cat)) for cat in Book.objects.all()] 
+		
+		# Gère les clics sur les items de la liste
+		def queryset(self, request, queryset):
+			if self.value():
+				return queryset.filter(reviewed_book__id__exact=self.value())
+			return queryset
+	
+	return ListFilter
+
+
+class AuthorResource(resources.ModelResource):
+
+    class Meta:
+        model = Author
 
 class AdminAuthorForm(forms.ModelForm):
 
@@ -153,7 +199,6 @@ class AdminAuthorForm(forms.ModelForm):
 	class Meta:
 		# Affichage des champs dans la page d'ajout / edit
 		fields = "__all__"
-
 class ViewerAuthorForm(forms.ModelForm):
 	model = Author
 	class Meta:
@@ -237,7 +282,7 @@ class InlineReviewsAdmin(TabularInlinePaginated):
 
 	model = Review
 	# form = ViewerReviewForm
-	per_page = 25
+	per_page = 5
 
 class InlineRelationBookGenreAdmin(admin.TabularInline):
 	model = RelationBookGenre
@@ -262,14 +307,16 @@ class InlineRelationBookGenreAdmin(admin.TabularInline):
             obj.book.title,) if obj.book else "-"
 
 @admin.register(Author)
-class AuthorAdmin(admin.ModelAdmin):
+class AuthorAdmin(ImportExportModelAdmin):
 
 	# Permet d'afficher ce que renvoi le __str__ sur le panel admin
 	list_display = ['__str__']
 	# Gère la pagination
 	list_per_page = 25
+	# change_list_template = "/home/loris/romain_porcer/django_tests/tutorial/project_test/apptestforadminpanel/templates/admin/apptestforadminpanel/authorAdminList.html"
 
-	inlines = [InlineBookAdmin]
+	inlines = [InlineBookAdmin] # Liste des livres associés à l'auteur
+	resource_classes = [AuthorResource] # Utile pour import/export données
 
 	actions = [actiondonnee, seconde_action_donnee, 
 			   troisieme_action_donnee, quatrieme_action_donnee]
@@ -300,6 +347,8 @@ class AuthorAdmin(admin.ModelAdmin):
 			# Utilisateur sans droits
 			return {} # Pas d'actions
 		return actions
+	
+
 
 	# Redéfini le formulaire (ici en fonction des groupes)
 	def get_form(self, request, obj=None, **kwargs):
@@ -366,7 +415,9 @@ class BookAdmin(admin.ModelAdmin):
 	search_fields = ["title"]
 
 	# Champs affichés
-	list_display = ['titre_colore', 'description', 'author', "nb_selled_books", "view_genres_link"]
+	list_display = ['titre_colore', 'description', 'author', "nb_selled_books", "view_genres_link", "view_reviews_link"]
+
+	inlines = [InlineReviewsAdmin]
 
 	# Définition d'un brenda_adminchamp du list_display
 	def view_genres_link(self, obj):
@@ -377,11 +428,23 @@ class BookAdmin(admin.ModelAdmin):
 			# Format général : "admin:<nom_app>_<obj_reference>_changelist"
             reverse("admin:apptestforadminpanel_genre_changelist")
             + "?" # Agit comme un WHERE
-			# Format général : "<obj>__<elt_pour_where>"
-            + urlencode({"book__id": f"{obj.id}"})
+            + f"linked_books__id__exact={obj.id}"
         )
         
 		return format_html('<a href="{}">{} Genres</a>', url, count)
+
+	def view_reviews_link(self, obj):
+		count = getattr(obj, "review_set").count()
+
+		url = (
+			# Format général : "admin:<nom_app>_<obj_reference>_changelist"
+            reverse("admin:apptestforadminpanel_review_changelist")
+            + "?" # Agit comme un WHERE
+			# Format général : "<obj>__<elt_pour_where>"
+            + f"reviewed_book__id__exact={obj.id}"
+        )
+
+		return format_html('<a href="{}">{} Critiques</a>', url, count)
 
 	# Spécifie quelles actions sont liées à la page admin associée
 	actions = [actiondonnee, seconde_action_donnee]
@@ -408,6 +471,11 @@ class GenreAdmin(admin.ModelAdmin):
 	# Page perso html pour ajout / modification d'un elt
 	# change_form_template = "/home/loris/romain_porcer/django_tests/tutorial/project_test/apptestforadminpanel/templates/admin/apptestforadminpanel/adminPanelTest.html"
 	search_fields = ["title"]
+
+	# On personnalise le filtre de la liste (celui à droite)
+	lf = list_filter_factory("linked_books", "linked_books__id__exact")
+
+	list_filter = (lf,)
 	filter_horizontal = ["linked_books"]
 	inlines = [InlineRelationBookGenreAdmin]
 
@@ -439,7 +507,14 @@ class GenreAdmin(admin.ModelAdmin):
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
 	list_display = ["title", "description", "view_note_link", "view_reviewed_book_link",]
+	list_per_page = 25
 
+	lf = list_filter_factory("reviewed_book", "reviewed_book__id__exact")
+
+	list_filter = (lf,)
+
+	actions = [seconde_action_donnee]
+	
 	# On crée une nouvelle façon d'afficher quelque chose sur la liste
 	def view_note_link(self, obj):
 		return format_html("<span style='color:#222'>{}/5</span>", obj.overall_note)
@@ -451,6 +526,8 @@ class ReviewAdmin(admin.ModelAdmin):
 	# On redéfini le champ de la liste
 	view_note_link.short_description = "Note"
 	view_reviewed_book_link.short_description = "Livre revu"
+	
+
 ##########################################################################
 #                      GENERATION DE DONNEES FACTICES					 
 

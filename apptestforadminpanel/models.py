@@ -52,7 +52,6 @@ class Review(models.Model):
 	description = models.CharField(max_length=400)
 	overall_note = models.IntegerField()
 	reviewed_book = models.ForeignKey(Book, on_delete=models.CASCADE)
-	
 class RelationBookGenre(models.Model):
 	book = models.ForeignKey(Book, on_delete=models.CASCADE)
 	genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
@@ -60,3 +59,4 @@ class RelationBookGenre(models.Model):
 
 	def __str__(self):
 		return self.book.title
+		
