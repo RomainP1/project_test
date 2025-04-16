@@ -12,8 +12,8 @@
 
 .btn-list-filter-pagination-nav {
 	list-style-type: none;
-	width: 25px;
-	height: 25px;
+	width: 2em;
+	height: 2em;
   border-width: 1px;
   border-color: rgb(172, 172, 172);
   border-style: solid;
@@ -23,11 +23,14 @@
 
 .out-of-pagination {
 	display: none !important;
-	background-color: rgb(1, 18, 255) !important;
 }
 
 #pagination-container ul {
   display: flex;
+}
+
+.filtered-element {
+  display: none !important;
 }
 
 </style>
@@ -72,80 +75,116 @@
 
     var listData = []; // Contient toutes les données de la liste
 
-    var currentPage = 251; // Par défaut //FIXME fonctionne quand on m'initialise 
+    var currentPage = 1; // Par défaut //FIXME fonctionne quand on m'initialise 
 
-
+    /**
+     * Récupère toutes les données filtrées  
+     */
     function getListData() {
 
       listData = [];
       $(".list-value").each(function() {
-        if ($(this).is(":visible")) {
+        if (!$(this).hasClass("filtered-element")) {
           listData.push($(this).prop('outerHTML'))
 
         }
       })  
+      return listData;
     }
 
-    function showMatchingPage() {
-
+    function getNumberOfPages() {
       getListData()
-      toShowData = listData.splice(ELEMENT_PER_PAGE * (currentPage - 1), 
-      ELEMENT_PER_PAGE);
+      return Math.ceil(listData.length / ELEMENT_PER_PAGE);
+    }
 
+    /**
+     * Actualise les données affichées dans la pagination
+     */
+    function showMatchingPage(numberOfPage, btnBaseId) {
+
+      // On récupère les données associées à la page
+      toShowData = getListData().splice(ELEMENT_PER_PAGE * (currentPage - 1), 
+                                        ELEMENT_PER_PAGE);
+
+      // Affiche / Cache les données en fonction de la page courante
       $(".list-value").each(function() {
-        if (jQuery.inArray($(this).prop('outerHTML'), toShowData) > -1) {       
+        if (jQuery.inArray($(this).prop('outerHTML'), toShowData) > -1) {   
           $(this).removeClass("out-of-pagination");
         } else {
           $(this).addClass("out-of-pagination");
         }
       })
 
+      // Affiche la barre de pagination
+      $("#pagination-container").html(getPaginationNav(currentPage, numberOfPage, btnBaseId));
+
+      // S'assure de ne pas avoir des duplications de données
       toShowData = []
     }
 
-    // Fonction pour initialiser la pagination
-    function doPagination(numberOfPage, btnBaseId) {
-      
-      if (listData.length > 0) {
-        // TODO : Gérer la pagination
-        showMatchingPage()
-        console.log(listData.length)
-        $(".list-value").each(function() {
-          // console.log($(this).html());
-        })
+    /**
+     * Gère la pagination du widget list-filter
+     */
+    function bindPaginationButtons(btnBaseId) {
+        
+      if (getListData().length > 0) {
 
+        // On bind les boutons de navigation gauche et droite
+
+        // On s'assure de ne pas binder plusieurs fois l'item
+        $(document).off("click", `#${btnBaseId}-prev`)
         $(document).on("click" ,`#${btnBaseId}-prev` ,function() {
-          currentPage--;
-          $("#pagination-container").html(getPaginationNav(currentPage, numberOfPage, btnBaseId));
-          showMatchingPage()
+          if (currentPage > 1) {
+            currentPage--;
+            showMatchingPage(getNumberOfPages(), btnBaseId)
+          }
+        })
+        
+        // On s'assure de ne pas binder plusieurs fois l'item
+        $(document).off("click", `#${btnBaseId}-next`)
+        $(document).on("click" ,`#${btnBaseId}-next` ,function() {
+          if (currentPage < getNumberOfPages()) {
+            currentPage++;
+            showMatchingPage(getNumberOfPages(), btnBaseId)          
+          }
         })
 
-        $(document).on("click" ,`#${btnBaseId}-next` ,function() {
-          currentPage++;
-          $("#pagination-container").html(getPaginationNav(currentPage, numberOfPage, btnBaseId));
-          showMatchingPage()
+        // On bind les boutons numérotés
+        $(".bindable-nav-btn").each(function() {
+          button = $(this)
+          $(document).on("click", button, function() {
+            console.log(button.text())
+          })
         })
+
+
       } else {
         console.error('Aucune donnée à afficher pour la pagination.');
       }
     }
 
-    getListData()
-    $("#pagination-container").html(getPaginationNav(currentPage, listData.length / ELEMENT_PER_PAGE, PAGINATION_BASE_ID));
-    doPagination(listData.length / ELEMENT_PER_PAGE, PAGINATION_BASE_ID)
-    
+    // On initialise la pagination
+    $("#pagination-container").html(getPaginationNav(currentPage, getNumberOfPages(), PAGINATION_BASE_ID));
+    showMatchingPage(getNumberOfPages(), PAGINATION_BASE_ID)    
+    bindPaginationButtons(PAGINATION_BASE_ID)
+
     // Dès que l'utilisateur lâche une touche sur la zone de saisi (keyup)
     $("#search-bar-input").on("keyup", function() { 
       // Ici, $(this) représente la barre de recherche de la liste
       
       var value = $(this).val().toLowerCase(); // Valeur de la barre de recherche
-      $("#books-list tr td").filter(function() { // Permet de filtrer la table des livres (List Filter)
+      $(".list-value").each(function() { // Permet d'itérer dans la table des éléments de liste (List Filter)
         // Ici, $(this) représente un élément de la liste (filter fait comme un parcours de liste)
         
-        // $(this).toggle(condition) <=> fait disparaitre l'élément de la liste si condition est 'true' 
-        $(this).toggle($(this).text() // Récupère le nom du livre parcouru dans la liste
-                              .toLowerCase() // Le met en lowercase
-                              .indexOf(value) > -1);
+        if ($(this).text() // Récupère le nom de la donnée affichée parcouru dans la liste
+                   .toLowerCase() // La met en lowercase
+                   .indexOf(value) > -1) {
+            
+            $(this).removeClass("filtered-element");
+        } else {
+            $(this).addClass("filtered-element");
+
+        }
         // -- EXPLICATION DU indexOf() --
         // "a".indexOf("b") => -1 car "a" ne contient pas "b" mais
         // "fabrice".indexOf("b") => 2 car la 1ere occurrence de "b" est en indice 2
@@ -154,38 +193,40 @@
       currentPage = 1;
       // $(this) change car pour chaque cas, on associe à this 
       // "l'élément" modifiable de la fonction anonyme
-      
-      getListData()
-      doPagination(listData.length / ELEMENT_PER_PAGE, PAGINATION_BASE_ID)
+
+      bindPaginationButtons(PAGINATION_BASE_ID)
+      showMatchingPage(getNumberOfPages(), PAGINATION_BASE_ID)
     });
 
     function getPaginationNav(actualPage, numberOfPage, btnBaseId) {
-      console.log("APPEL DE GETPAGINATION")
+      
       let navBar = "<ul>";
 
       navBar += `<li id="${btnBaseId}-prev" class="btn-list-filter-pagination-nav">‹</li>`;
 
+      // Cas où la pagination gère beaucoup de données
       if (actualPage - 5 > 3) {
         for (let pageNumber = 1; pageNumber < 3; pageNumber++) {
-        if (pageNumber >= 1 && pageNumber <= numberOfPage) {
-          navBar += `<li id="${btnBaseId}-${pageNumber}" class="btn-list-filter-pagination-nav">${pageNumber}</li>`;
-        }
+          if (pageNumber >= 1 && pageNumber <= numberOfPage) {
+            navBar += `<li id="${btnBaseId}-${pageNumber}" class="btn-list-filter-pagination-nav bindable-nav-btn">${pageNumber}</li>`;
+          }
         }
         navBar += `<li class="btn-list-filter-pagination-nav">...</li>`;
       }
 
       for (let pageNumber = actualPage - 1; pageNumber <= actualPage + 1; pageNumber++) {
-        console.log(`PAGE NUMBER ${pageNumber} | ACTUAL PAGE ${actualPage} |`);
         if (pageNumber >= 1 && pageNumber <= numberOfPage) {
-        navBar += `<li id="${btnBaseId}-${pageNumber}" class="btn-list-filter-pagination-nav">${pageNumber}</li>`;
+        navBar += `<li id="${btnBaseId}-${pageNumber}" class="btn-list-filter-pagination-nav bindable-nav-btn`;
+        navBar += pageNumber == actualPage ? " active-pagination-page" : "";
+        navBar += `">${pageNumber}</li>`
         }
       }
 
       if (actualPage + 5 < numberOfPage) {
         navBar += `<li class="btn-list-filter-pagination-nav">...</li>`;
-        for (let pageNumber = Math.round(numberOfPage) - 1; pageNumber < numberOfPage; pageNumber++) {
+        for (let pageNumber = Math.ceil(numberOfPage) - 1; pageNumber <= numberOfPage; pageNumber++) {
           if (pageNumber >= 1 && pageNumber <= numberOfPage) {
-            navBar += `<li id="${btnBaseId}-${pageNumber}" class="btn-list-filter-pagination-nav">${pageNumber}</li>`;
+            navBar += `<li id="${btnBaseId}-${pageNumber}" class="btn-list-filter-pagination-nav bindable-nav-btn">${pageNumber}</li>`;
           }
         }
       }
