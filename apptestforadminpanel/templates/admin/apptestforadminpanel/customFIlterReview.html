@@ -280,6 +280,8 @@
           navBar += `<li class="elt-list-filter-pagination-nav">...</li>`;
         }
 
+        // TODO : Supprimer pages adjacentes à la page courante + POO + augmenter nb pages aux extrémités
+
         // Permet d'afficher les pages autour de la page courante
         for (let pageNumber = actualPage - 1; pageNumber <= actualPage + 1; pageNumber++) {
           if (pageNumber >= 1 && pageNumber <= getNumberOfPages()) {
