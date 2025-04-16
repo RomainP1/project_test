@@ -19,6 +19,11 @@
   border-style: solid;
   display: flex;
   justify-content: center
+
+}
+
+.btn-list-filter-pagination-nav:hover {
+  cursor: pointer;
 }
 
 .out-of-pagination {
@@ -33,6 +38,26 @@
   display: none !important;
 }
 
+.active-pagination-page {
+  background-color: #79aec8;
+  color: azure;
+}
+
+#pagination-container {
+  width: 25em;
+}
+
+.disabled-pagination-btn {
+  background-color: rgb(224, 224, 224);
+  color: rgb(187, 187, 187);
+  cursor: not-allowed !important;
+}
+
+#pagination-navbar {
+  display: flex;
+  justify-content: space-between;
+}
+
 </style>
 
 {% load i18n %}
@@ -42,7 +67,7 @@
   <summary>
     {% blocktranslate with filter_title=title %} By {{ filter_title }} {% endblocktranslate %}
   </summary>
-  <input id="search-bar-input" type="text" placeholder="Entrez le nom du livre ici...">
+  <input id="search-bar-input" type="text" placeholder="Nom de la ressource">
   <div id="listfilter-container">
     <table id="books-list">
       <!-- Modification de la <ul> en <table> pour mieux utiliser Jquery-->
@@ -55,7 +80,8 @@
 
   <!-- Conteneur de pagination, ici on l'ajoute sous la table -->
   <div id="pagination-container"></div>   
-
+  <label for="goToPageInput">Aller à la page :</label>
+  <input type="number" placeholder="1" id="paginator-page-selector">
 </details>
 
 <!-- function simpleTemplating(data) {
@@ -100,7 +126,7 @@
     /**
      * Actualise les données affichées dans la pagination
      */
-    function showMatchingPage(numberOfPage, btnBaseId) {
+    function showMatchingPage() {
 
       // On récupère les données associées à la page
       toShowData = getListData().splice(ELEMENT_PER_PAGE * (currentPage - 1), 
@@ -116,57 +142,75 @@
       })
 
       // Affiche la barre de pagination
-      $("#pagination-container").html(getPaginationNav(currentPage, numberOfPage, btnBaseId));
+      
+      $("#pagination-container").html(getPaginationNav(currentPage, PAGINATION_BASE_ID));
+      bindPaginationButtons(PAGINATION_BASE_ID)
 
       // S'assure de ne pas avoir des duplications de données
       toShowData = []
     }
 
     /**
+     * Gère la saisi d'une page spécifique
+     */
+    function goToPage(givenPage) {
+      if (givenPage >= 1 && givenPage <= getNumberOfPages()) {
+        // Affiche la barre de pagination
+        $("#pagination-container").html(getPaginationNav(givenPage, getNumberOfPages()));
+        showMatchingPage()    
+        bindPaginationButtons()
+      }
+    }
+
+    /**
      * Gère la pagination du widget list-filter
      */
-    function bindPaginationButtons(btnBaseId) {
+    function bindPaginationButtons() {
         
       if (getListData().length > 0) {
 
         // On bind les boutons de navigation gauche et droite
 
         // On s'assure de ne pas binder plusieurs fois l'item
-        $(document).off("click", `#${btnBaseId}-prev`)
-        $(document).on("click" ,`#${btnBaseId}-prev` ,function() {
-          if (currentPage > 1) {
-            currentPage--;
-            showMatchingPage(getNumberOfPages(), btnBaseId)
-          }
-        })
+        $(document).off("click", `#${PAGINATION_BASE_ID}-prev`)
+        if (currentPage > 1) {
+          $(document).on("click" ,`#${PAGINATION_BASE_ID}-prev` ,function() {
+              currentPage--;
+              showMatchingPage()
+          })
+        } else {
+          $(`#${PAGINATION_BASE_ID}-prev`).addClass("disabled-pagination-btn");
+        }
         
         // On s'assure de ne pas binder plusieurs fois l'item
-        $(document).off("click", `#${btnBaseId}-next`)
-        $(document).on("click" ,`#${btnBaseId}-next` ,function() {
-          if (currentPage < getNumberOfPages()) {
+        $(document).off("click", `#${PAGINATION_BASE_ID}-next`)
+        if (currentPage < getNumberOfPages()) {
+          $(document).on("click" ,`#${PAGINATION_BASE_ID}-next` ,function() {
             currentPage++;
-            showMatchingPage(getNumberOfPages(), btnBaseId)          
-          }
-        })
+            showMatchingPage()          
+          })
+        } else {
+          $(`#${PAGINATION_BASE_ID}-next`).addClass("disabled-pagination-btn");
+        }
 
         // On bind les boutons numérotés
         $(".bindable-nav-btn").each(function() {
-          button = $(this)
-          $(document).on("click", button, function() {
-            console.log(button.text())
-          })
+          $(this).off("click"); // Pour ne pas doubler les binds
+          $(this).on("click", function() {
+            // Redirige vers la page du numéro
+            currentPage = parseInt($(this).text())
+            showMatchingPage()          
+
+          });
+
         })
-
-
       } else {
         console.error('Aucune donnée à afficher pour la pagination.');
       }
     }
 
     // On initialise la pagination
-    $("#pagination-container").html(getPaginationNav(currentPage, getNumberOfPages(), PAGINATION_BASE_ID));
-    showMatchingPage(getNumberOfPages(), PAGINATION_BASE_ID)    
-    bindPaginationButtons(PAGINATION_BASE_ID)
+    goToPage(currentPage)
 
     // Dès que l'utilisateur lâche une touche sur la zone de saisi (keyup)
     $("#search-bar-input").on("keyup", function() { 
@@ -194,44 +238,76 @@
       // $(this) change car pour chaque cas, on associe à this 
       // "l'élément" modifiable de la fonction anonyme
 
-      bindPaginationButtons(PAGINATION_BASE_ID)
-      showMatchingPage(getNumberOfPages(), PAGINATION_BASE_ID)
+      showMatchingPage();
     });
 
-    function getPaginationNav(actualPage, numberOfPage, btnBaseId) {
+    $("#paginator-page-selector").on("keyup", function() {
+      selectedPage = $(this).val();
+      if (selectedPage.length == 0) {
+        // Plus rien n'est saisi dans la barre de recherche 
+        currentPage = 1
+        goToPage(currentPage);
       
-      let navBar = "<ul>";
+      } else if (jQuery.type(parseInt(selectedPage)) === "number") {
+        // On change de page si la donnée est un nombre
+        
+        // Si on donne un trop grand nombre, on obtient la dernière page
+        currentPage = parseInt(selectedPage) > getNumberOfPages() ? getNumberOfPages() : parseInt(selectedPage);
+        goToPage(currentPage);
+      } 
+      
 
-      navBar += `<li id="${btnBaseId}-prev" class="btn-list-filter-pagination-nav">‹</li>`;
+    })
 
-      // Cas où la pagination gère beaucoup de données
-      if (actualPage - 5 > 3) {
-        for (let pageNumber = 1; pageNumber < 3; pageNumber++) {
-          if (pageNumber >= 1 && pageNumber <= numberOfPage) {
-            navBar += `<li id="${btnBaseId}-${pageNumber}" class="btn-list-filter-pagination-nav bindable-nav-btn">${pageNumber}</li>`;
+    function getPaginationNav(actualPage) {
+      
+      // Le conteneteditable empêche tout le texte d'être sélectionné
+      let navBar = "<ul id='pagination-navbar' conteneteditable='false'>";
+
+      // Bouton pour aller sur la page précédente
+      navBar += `<li id="${PAGINATION_BASE_ID}-prev" class="btn-list-filter-pagination-nav">‹</li>`;
+
+      if (getNumberOfPages() > 8) {
+        // Cas où la pagination gère beaucoup de données
+        
+        // Permet d'afficher les pages qui débutent la pagination
+        if (actualPage - 8 > 0) {
+          for (let pageNumber = 1; pageNumber < 3; pageNumber++) {
+            if (pageNumber >= 1 && pageNumber <= getNumberOfPages()) {
+              navBar += `<li id="${PAGINATION_BASE_ID}-${pageNumber}" class="btn-list-filter-pagination-nav bindable-nav-btn">${pageNumber}</li>`;
+            }
+          }
+          navBar += `<li class="elt-list-filter-pagination-nav">...</li>`;
+        }
+
+        // Permet d'afficher les pages autour de la page courante
+        for (let pageNumber = actualPage - 1; pageNumber <= actualPage + 1; pageNumber++) {
+          if (pageNumber >= 1 && pageNumber <= getNumberOfPages()) {
+          navBar += `<li id="${PAGINATION_BASE_ID}-${pageNumber}" class="btn-list-filter-pagination-nav bindable-nav-btn`;
+          navBar += pageNumber == actualPage ? " active-pagination-page" : "";
+          navBar += `">${pageNumber}</li>`
           }
         }
-        navBar += `<li class="btn-list-filter-pagination-nav">...</li>`;
-      }
 
-      for (let pageNumber = actualPage - 1; pageNumber <= actualPage + 1; pageNumber++) {
-        if (pageNumber >= 1 && pageNumber <= numberOfPage) {
-        navBar += `<li id="${btnBaseId}-${pageNumber}" class="btn-list-filter-pagination-nav bindable-nav-btn`;
-        navBar += pageNumber == actualPage ? " active-pagination-page" : "";
-        navBar += `">${pageNumber}</li>`
-        }
-      }
-
-      if (actualPage + 5 < numberOfPage) {
-        navBar += `<li class="btn-list-filter-pagination-nav">...</li>`;
-        for (let pageNumber = Math.ceil(numberOfPage) - 1; pageNumber <= numberOfPage; pageNumber++) {
-          if (pageNumber >= 1 && pageNumber <= numberOfPage) {
-            navBar += `<li id="${btnBaseId}-${pageNumber}" class="btn-list-filter-pagination-nav bindable-nav-btn">${pageNumber}</li>`;
+        // Permet d'afficher les pages qui terminent la pagination
+        if (actualPage + 5 < getNumberOfPages()) {
+          navBar += `<li class="elt-list-filter-pagination-nav">...</li>`;
+          for (let pageNumber = Math.ceil(getNumberOfPages()) - 1; pageNumber <= getNumberOfPages(); pageNumber++) {
+            if (pageNumber >= 1 && pageNumber <= getNumberOfPages()) {
+              navBar += `<li id="${PAGINATION_BASE_ID}-${pageNumber}" class="btn-list-filter-pagination-nav bindable-nav-btn">${pageNumber}</li>`;
+            }
           }
         }
+      } else {
+        for (let pageNumber = 1; pageNumber <= getNumberOfPages(); pageNumber++) {
+          navBar += `<li id="${PAGINATION_BASE_ID}-${pageNumber}" class="btn-list-filter-pagination-nav bindable-nav-btn`;
+          navBar += pageNumber == actualPage ? " active-pagination-page" : "";
+          navBar += `">${pageNumber}</li>`
+        } 
       }
 
-      navBar += `<li id="${btnBaseId}-next" class="btn-list-filter-pagination-nav">›</li>`;
+      // Bouton pour aller sur la page suivante
+      navBar += `<li id="${PAGINATION_BASE_ID}-next" class="btn-list-filter-pagination-nav">›</li>`;
 
       navBar += "</ul>";
 
