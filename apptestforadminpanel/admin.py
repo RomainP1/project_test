@@ -7,7 +7,7 @@ from django.shortcuts import redirect, render
 from django_admin_inline_paginator.admin import TabularInlinePaginated
 from django.contrib.auth.models import Group, User, Permission
 from django.contrib.contenttypes.models import ContentType
-from .models import Author, Book, Genre, RelationBookGenre, Review
+from .models import Author, Book, Genre, RelationBookGenre, Review, testToValidateData
 from django.utils.translation import ngettext
 from django.utils.html import format_html
 import re # regex
@@ -16,6 +16,8 @@ from django.urls import reverse
 from django.utils.http import urlencode
 import csv
 from import_export.admin import ImportExportModelAdmin
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy
 
 ## A DEPLACER DANS utils.py :
 
@@ -114,7 +116,6 @@ for perm in models_permissions:
 # user = User.objects.get(username="john")
 # user.groups.add(view_group)  # Add the user to the Lecture group
 
-# Register your models here.
 
 
 # Configuration d'actions personnalisés
@@ -178,13 +179,16 @@ def list_filter_factory(title_p="", parameter_name_p=""):
 			# Renvoi une liste de tuples : (idDonnee, donneeAAfficher)
 			return [(str(cat.pk), str(cat)) for cat in Book.objects.all()] 
 		
+
 		# Gère les clics sur les items de la liste
 		def queryset(self, request, queryset):
+			lookup = {parameter_name_p : self.value()} # Permet de généraliser la FK associé au filtre
 			if self.value():
-				return queryset.filter(reviewed_book__id__exact=self.value())
+				return queryset.filter(**lookup) # ! COMPRENDRE COMMENT FONCTIONNE CETTE PARTIE
 			return queryset
-	
+
 	return ListFilter
+
 
 
 class AuthorResource(resources.ModelResource):
@@ -530,6 +534,7 @@ class ReviewAdmin(admin.ModelAdmin):
 	def __str__(self):
 		return self.title
 	
+admin.site.register(testToValidateData)
 
 ##########################################################################
 #                      GENERATION DE DONNEES FACTICES					 
