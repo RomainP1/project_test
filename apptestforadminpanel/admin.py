@@ -526,6 +526,9 @@ class ReviewAdmin(admin.ModelAdmin):
 	# On redéfini le champ de la liste
 	view_note_link.short_description = "Note"
 	view_reviewed_book_link.short_description = "Livre revu"
+
+	def __str__(self):
+		return self.title
 	
 
 ##########################################################################
@@ -619,3 +622,8 @@ create_reviews()
 ##########################################################################
 
 
+# Données intéressantes
+
+# formfield_overrides
+# Virtual Scrolls
+# FlexField
