@@ -146,12 +146,12 @@ class testToValidateData(models.Model):
 	heure_fin = models.TimeField()
 	date_heure_debut = models.DateTimeField()
 	date_heure_fin = models.DateTimeField()
-	password = models.CharField(max_length=200)
-	donnee_a_unique = models.CharField(max_length=200)
-	limite_donnee_a = models.CharField(max_length=200)
-	donnee_logique_complexe_a = models.CharField(max_length=300)
-	donnee_logique_complexe_b = models.CharField(max_length=300)
-	donnee_logique_complexe_c = models.CharField(max_length=300)
+	password = models.CharField(max_length=200) # * TODO : Faire des cas de validations sur ce champ
+	donnee_a_unique = models.CharField(max_length=200) # ! TODO : Faire plus de cas de validations sur ce champ
+	limite_donnee_a = models.CharField(max_length=200) # * TODO : Faire des cas de validations sur ce champ
+	donnee_logique_complexe_a = models.CharField(max_length=300) # * TODO : Faire des cas de validations sur ce champ
+	donnee_logique_complexe_b = models.CharField(max_length=300) # * TODO : Faire des cas de validations sur ce champ
+	donnee_logique_complexe_c = models.CharField(max_length=300) # * TODO : Faire des cas de validations sur ce champ
 
 	# Méthode exécutée pour faire la validation des données. 
 	# Exécute to_python(), validate() et run_validator() avant
