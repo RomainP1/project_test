@@ -1,4 +1,3 @@
-import factory
 from faker import Faker
 from import_export import resources
 from django.contrib import admin, messages
@@ -18,6 +17,8 @@ import csv
 from import_export.admin import ImportExportModelAdmin
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy
+from django.http import HttpResponseRedirect
+
 
 ## A DEPLACER DANS utils.py :
 
@@ -149,11 +150,25 @@ def troisieme_action_donnee(modeladmin, request, queryset):
 def quatrieme_action_donnee(modeladmin, request, queryset):
 	pass
 
+@admin.action(description="Modifier le livre de la revue")
+def modify_parent_type(modeladmin, request, queryset):
+	
+	# Les données à modifier sont dans le queryset
 
+	# Code conseillé par la doc : https://docs.djangoproject.com/fr/3.2/ref/contrib/admin/actions/
+	selected = queryset.values_list('pk', flat=True)
+	ct = ContentType.objects.get_for_model(queryset.model)
+
+	# ? FIXME : Ne renvoi pas sur le form => Gérer urls dans urls.py
+
+	return redirect('/admin/change_parent_type?ct=%s&ids=%s' % (
+        ct.pk,
+        ','.join(str(pk) for pk in selected),
+    ))
 
 def list_filter_factory(title_p="", parameter_name_p=""):
 
-	""" Description : A little factory (not a real one) made to
+	""" Description : A little factory (not really a real one) made to
 					  pass parameters into a ListFilter, in order to
 					  make it more reusable
 
@@ -360,8 +375,7 @@ class AuthorAdmin(ImportExportModelAdmin):
 		user_group = "" # Initialisation à vide
 
 		# Récupération du groupe du user
-		if (len(list(request.user.groups.all()))> 0 ):
-			user_group = list(request.user.groups.all())[0].__str__()
+		get_user_group(request)
 			
 		if request.user.is_superuser:
 			kwargs['form'] = AdminAuthorForm
@@ -423,7 +437,7 @@ class BookAdmin(admin.ModelAdmin):
 
 	inlines = [InlineReviewsAdmin]
 
-	# Définition d'un brenda_adminchamp du list_display
+	# Définition d'un adminchamp du list_display
 	def view_genres_link(self, obj):
 		count = getattr(obj, "genre_set").count()
 		
@@ -517,7 +531,8 @@ class ReviewAdmin(admin.ModelAdmin):
 
 	list_filter = (lf,)
 
-	actions = [seconde_action_donnee]
+	# On veut pouvoir changer de livre pour la revue
+	actions = [modify_parent_type]
 	
 	# On crée une nouvelle façon d'afficher quelque chose sur la liste
 	def view_note_link(self, obj):
