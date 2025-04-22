@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from apptestforadminpanel.views import change_parent_type
 urlpatterns = [
-	path('admin/change_parent_type/<int:queryset_ids>', change_parent_type, name="change_parent_type"),
+	path('admin/change_parent_type', change_parent_type, name="change_parent_type"),
     path('admin/', admin.site.urls), # login & password : root
 	
 ]

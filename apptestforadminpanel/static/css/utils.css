@@ -1,0 +1,67 @@
+.btn-list-filter-pagination-nav {
+  list-style-type: none;
+  width: 2.5em;
+  height: 2.5em;
+  border-width: 1px;
+  border-color: rgb(172, 172, 172);
+  border-style: solid;
+  display: flex;
+  justify-content: center
+
+}
+
+.elt-list-filter-pagination-nav {
+	list-style-type: none;
+
+}
+
+
+.btn-list-filter-pagination-nav:hover {
+  cursor: pointer;
+}
+
+.out-of-pagination {
+	display: none !important;
+}
+
+#pagination-container ul {
+  display: flex;
+}
+
+.filtered-element {
+  display: none !important;
+}
+
+.active-pagination-page {
+  background-color: #79aec8;
+  color: azure;
+}
+
+#pagination-container {
+  width: 25em;
+}
+
+.disabled-pagination-btn {
+  background-color: rgb(224, 224, 224);
+  color: rgb(187, 187, 187);
+  cursor: not-allowed !important;
+}
+
+#pagination-navbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.pagination-centerer {
+	margin-top : 3em;
+
+}
+
+.change-parent-table {
+  width: 400px;
+}
+
+.change-parent-table td input {
+  width: 10px;
+  display: flex;
+}

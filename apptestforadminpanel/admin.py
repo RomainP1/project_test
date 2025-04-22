@@ -1,3 +1,4 @@
+import os
 from faker import Faker
 from import_export import resources
 from django.contrib import admin, messages
@@ -22,7 +23,7 @@ from django.http import HttpResponseRedirect
 
 ## A DEPLACER DANS utils.py :
 
-def disable_fields(form_fields, editable_fields=[]):
+def enable_fields(form_fields, editable_fields=[]):
 	""" Description
 
 		:type form_fields: List
@@ -161,7 +162,7 @@ def modify_parent_type(modeladmin, request, queryset):
 
 	# ? FIXME : Ne renvoi pas sur le form => Gérer urls dans urls.py
 
-	return redirect('/admin/change_parent_type?ct=%s&ids=%s' % (
+	return HttpResponseRedirect('/admin/change_parent_type?model=Review&ct=%s&ids=%s' % (
         ct.pk,
         ','.join(str(pk) for pk in selected),
     ))
@@ -205,7 +206,6 @@ def list_filter_factory(title_p="", parameter_name_p=""):
 	return ListFilter
 
 
-
 class AuthorResource(resources.ModelResource):
 
     class Meta:
@@ -226,7 +226,7 @@ class ViewerAuthorForm(forms.ModelForm):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		
-		disable_fields(self.fields)
+		enable_fields(self.fields)
 
 class DeployAuthorForm(forms.ModelForm):
 	model = Author
@@ -236,7 +236,7 @@ class DeployAuthorForm(forms.ModelForm):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		
-		disable_fields(self.fields, ['name', 'surname', 'age',])
+		enable_fields(self.fields, ['name', 'surname', 'age',])
 
 class SupportAuthorForm(forms.ModelForm):
 	model = Author
@@ -246,7 +246,43 @@ class SupportAuthorForm(forms.ModelForm):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		
-		disable_fields(self.fields, ['tel', 'mail', 'x',])
+		enable_fields(self.fields, ['tel', 'mail', 'x',])
+
+
+class AdminReviewForm(forms.ModelForm):
+	model = Review
+
+	class Meta:
+		fields = "__all__"
+	
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		
+		enable_fields(self.fields, self.fields)
+
+class SupportReviewForm(forms.ModelForm):
+	model = Review
+
+	class Meta:
+		fields = "__all__"
+	
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		
+		enable_fields(self.fields, ["title", "description", "overall_note",])
+
+
+class OtherReviewForm(forms.ModelForm):
+	model = Review
+
+	class Meta:
+		fields = "__all__"
+	
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		
+		enable_fields(self.fields)
+
 
 # Permet de gérer les formulaires (add et edit) // Encore à voir
 class AdminBookForm(forms.ModelForm):
@@ -257,6 +293,7 @@ class AdminBookForm(forms.ModelForm):
 
 class ViewerBookForm(forms.ModelForm):
 	model = Book
+
 	class Meta:
 		# Affichage des champs dans la page d'ajout / edit
 		fields = "__all__"
@@ -265,9 +302,21 @@ class ViewerBookForm(forms.ModelForm):
 		super().__init__(*args, **kwargs)
 		# Liste des champs que tu veux rendre non modifiables
 		
-		disable_fields(self.fields, ['description',])
+		enable_fields(self.fields, ['description',])
+
+class ViewerReviewForm(forms.ModelForm):
+	model = Review
+	class Meta:
+		# Affichage des champs dans la page d'ajout / edit
+		fields = "__all__"
+		
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		# Liste des champs que tu veux rendre non modifiables
+		
 
 class NoGroupsForm(forms.ModelForm):
+
 	class Meta:
 		fields = "__all__"
 		
@@ -275,7 +324,7 @@ class NoGroupsForm(forms.ModelForm):
 		super().__init__(*args, **kwargs)
 
 		# Liste des champs que tu veux rendre non modifiables
-		disable_fields(self.fields)
+		enable_fields(self.fields)
 
 class DeployAndSupportBookForm(forms.ModelForm):
 	model = Book
@@ -287,7 +336,7 @@ class DeployAndSupportBookForm(forms.ModelForm):
 		super().__init__(*args, **kwargs)
 
 		# Liste des champs que tu veux rendre non modifiables
-		disable_fields(self.fields, ['title', 'author',])
+		enable_fields(self.fields, ['title', 'author',])
 
 
 
@@ -296,16 +345,36 @@ class InlineBookAdmin(TabularInlinePaginated):
 	model = Book
 	form = ViewerBookForm
 	per_page = 5
+	template = "/home/loris/romain_porcer/django_tests/tutorial/project_test/apptestforadminpanel/templates/admin/apptestforadminpanel/customInline.html"
 
 class InlineReviewsAdmin(TabularInlinePaginated):
 
 	model = Review
-	# form = ViewerReviewForm
 	per_page = 5
+
+	# Permet de modifier les données du inline
+	def get_formset(self, request, obj=None, **kwargs):
+		
+		user_group = get_user_group(request)
+		print(user_group)
+		if request.user.is_superuser:
+			kwargs['form'] = AdminReviewForm
+		elif (user_group == "Support"):
+			kwargs['form'] = SupportReviewForm
+		else :
+			kwargs['form'] = OtherReviewForm	
+
+		return super().get_formset(request, obj, **kwargs)
+
+	def __init__(self, parent_model, admin_site):
+		super().__init__(parent_model, admin_site)
+
+	template = "/home/loris/romain_porcer/django_tests/tutorial/project_test/apptestforadminpanel/templates/admin/apptestforadminpanel/customInline.html"
 
 class InlineRelationBookGenreAdmin(admin.TabularInline):
 	model = RelationBookGenre
 	extra = 0
+	template = "/home/loris/romain_porcer/django_tests/tutorial/project_test/apptestforadminpanel/templates/admin/apptestforadminpanel/customInline.html"
 
 	autocomplete_fields = ['book',]
 	fields = ["book_title_display",]
@@ -324,6 +393,7 @@ class InlineRelationBookGenreAdmin(admin.TabularInline):
 	    return format_html(
             '<span style="color:rgb(92, 74, 63); font-size: 30px;">{}</span>',
             obj.book.title,) if obj.book else "-"
+
 
 @admin.register(Author)
 class AuthorAdmin(ImportExportModelAdmin):
@@ -545,6 +615,23 @@ class ReviewAdmin(admin.ModelAdmin):
 	# On redéfini le champ de la liste
 	view_note_link.short_description = "Note"
 	view_reviewed_book_link.short_description = "Livre revu"
+
+	# Redéfini le formulaire (ici en fonction des groupes)
+	def get_form(self, request, obj=None, **kwargs):
+
+		user_group = "" # Initialisation à vide
+
+		# Récupération du groupe du user
+		user_group = get_user_group(request)
+			
+		if request.user.is_superuser:
+			kwargs['form'] = AdminReviewForm
+		elif (user_group == "Support"):
+			kwargs['form'] = SupportReviewForm
+		else :
+			kwargs['form'] = OtherReviewForm			
+		return super().get_form(request, obj, **kwargs)
+
 
 	def __str__(self):
 		return self.title
